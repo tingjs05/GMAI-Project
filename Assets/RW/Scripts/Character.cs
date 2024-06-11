@@ -70,6 +70,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         private int verticalMoveParam = Animator.StringToHash("V_Speed");
         private int shootParam = Animator.StringToHash("Shoot");
         private int hardLanding = Animator.StringToHash("HardLand");
+        private int hitParam = Animator.StringToHash("Hit");
         #endregion
 
         #region Properties
@@ -133,6 +134,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public void Damage(float damage)
         {
             Health -= damage;
+            TriggerAnimation(hitParam);
         }
 
         public void Move(float speed, float rotationSpeed)
