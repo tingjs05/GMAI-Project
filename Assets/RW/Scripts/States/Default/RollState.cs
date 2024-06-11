@@ -4,6 +4,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
 {
     public class RollState : State
     {
+        Vector3 targetVelocity;
+
         public RollState(Character character, StateMachine stateMachine) : base(character, stateMachine)
         {
         }
@@ -18,14 +20,16 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             // trigger animation
             character.TriggerAnimation(character.rollParam);
             // wait for draw animation duration
-            Wait(1f, () => stateMachine.ChangeState(character.standing));
+            Wait(0.5f, () => stateMachine.ChangeState(character.standing));
         }
 
-        public override void LogicUpdate()
+        public override void PhysicsUpdate()
         {
-            base.LogicUpdate();
-            // move player
-            character.Move(character.RollSpeed, 0f);
+            base.PhysicsUpdate();
+            // move player forward
+            targetVelocity = character.RollSpeed * character.transform.forward * Time.deltaTime;
+            targetVelocity.y = character.rb.velocity.y;
+            character.rb.velocity = targetVelocity;
         }
 
 

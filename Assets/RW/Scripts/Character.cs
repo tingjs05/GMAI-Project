@@ -95,6 +95,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public int crouchParam => Animator.StringToHash("Crouch");
         public int rollParam => Animator.StringToHash("Roll");
 
+        public Rigidbody rb { get; private set; }
         public bool isSheathed { get; private set; } = true;
         public float Health { get; private set; }
 
@@ -143,30 +144,30 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public void Move(float speed, float rotationSpeed)
         {
             Vector3 targetVelocity = speed * transform.forward * Time.deltaTime;
-            targetVelocity.y = GetComponent<Rigidbody>().velocity.y;
-            GetComponent<Rigidbody>().velocity = targetVelocity;
+            targetVelocity.y = rb.velocity.y;
+            rb.velocity = targetVelocity;
 
-            GetComponent<Rigidbody>().angularVelocity = rotationSpeed * Vector3.up * Time.deltaTime;
+            rb.angularVelocity = rotationSpeed * Vector3.up * Time.deltaTime;
 
-            if (targetVelocity.magnitude > 0.01f || GetComponent<Rigidbody>().angularVelocity.magnitude > 0.01f)
+            if (targetVelocity.magnitude > 0.01f || rb.angularVelocity.magnitude > 0.01f)
             {
                 SoundManager.Instance.PlayFootSteps(Mathf.Abs(speed));
             }
 
-            anim.SetFloat(horizonalMoveParam, GetComponent<Rigidbody>().angularVelocity.y);
+            anim.SetFloat(horizonalMoveParam, rb.angularVelocity.y);
             anim.SetFloat(verticalMoveParam, speed * Time.deltaTime);
         }
 
         public void ResetMoveParams()
         {
-            GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
             anim.SetFloat(horizonalMoveParam, 0f);
             anim.SetFloat(verticalMoveParam, 0f);
         }
 
         public void ApplyImpulse(Vector3 force)
         {
-            GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
+            rb.AddForce(force, ForceMode.Impulse);
         }
 
         public void SetAnimationBool(int param, bool value)
@@ -280,6 +281,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
 
         private void Start()
         {
+            // get rigidbody component
+            rb = GetComponent<Rigidbody>();
             // set health
             Health = data.maxHealth;
         }
