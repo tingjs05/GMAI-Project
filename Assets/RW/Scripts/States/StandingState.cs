@@ -49,12 +49,14 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             crouch = false;
             jump = false;
         }
+
         public override void HandleInput()
         {
             base.HandleInput();
             crouch = Input.GetButtonDown("Fire3");
             jump = Input.GetButtonDown("Jump");
         }
+        
         public override void LogicUpdate()
         {
             base.LogicUpdate();

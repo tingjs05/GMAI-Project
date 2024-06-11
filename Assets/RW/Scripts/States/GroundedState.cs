@@ -49,17 +49,20 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             base.Enter();
             horizontalInput = verticalInput = 0.0f;
         }
+        
         public override void Exit()
         {
             base.Exit();
             character.ResetMoveParams();
         }
+
         public override void HandleInput()
         {
             base.HandleInput();
             verticalInput = Input.GetAxis("Vertical");
             horizontalInput = Input.GetAxis("Horizontal");
         }
+
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();

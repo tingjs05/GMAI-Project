@@ -51,13 +51,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             belowCeiling = false;
         }
 
-        public override void Exit()
-        {
-            base.Exit();
-            character.SetAnimationBool(character.crouchParam, false);
-            character.ColliderSize = character.NormalColliderHeight;
-        }
-
         public override void HandleInput()
         {
             base.HandleInput();
@@ -76,7 +69,14 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
-            belowCeiling = character.CheckCollisionOverlap(character.transform.position +Vector3.up * character.NormalColliderHeight);
+            belowCeiling = character.CheckCollisionOverlap(character.transform.position + Vector3.up * character.NormalColliderHeight);
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            character.SetAnimationBool(character.crouchParam, false);
+            character.ColliderSize = character.NormalColliderHeight;
         }
     }
 }

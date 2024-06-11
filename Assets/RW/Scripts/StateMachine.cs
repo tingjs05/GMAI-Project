@@ -27,6 +27,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+using UnityEngine;
 
 namespace RayWenderlich.Unity.StatePatternInUnity
 {
@@ -41,7 +42,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         }
         public void ChangeState(State newState)
         {
-            newState?.Exit();
+            CurrentState?.Exit();
             CurrentState = newState;
             CurrentState?.Enter();
         }
