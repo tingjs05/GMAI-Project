@@ -18,19 +18,20 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             base.Exit();
         }
 
-        public override void HandleInput()
-        {
-            base.HandleInput();
-        }
-
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-        }
 
-        public override void PhysicsUpdate()
-        {
-            base.PhysicsUpdate();
+            if (triggerSheath)
+            {
+                stateMachine.ChangeState(character.isSheathed ? character.draw : character.sheath);
+                return;
+            }
+
+            // if (triggerAttack)
+            // {
+            //     stateMachine.ChangeState(character.attack);
+            // }
         }
     }
 }

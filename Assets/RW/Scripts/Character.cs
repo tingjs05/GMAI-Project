@@ -86,8 +86,13 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public float CollisionOverlapRadius => collisionOverlapRadius;
         public float DiveThreshold => diveThreshold;
         public float MeleeRestThreshold => meleeRestThreshold;
+        public int SwingMelee => Animator.StringToHash("SwingMelee");
+        public int DrawMelee => Animator.StringToHash("DrawMelee");
+        public int SheathMelee => Animator.StringToHash("SheathMelee");
         public int isMelee => Animator.StringToHash("IsMelee");
         public int crouchParam => Animator.StringToHash("Crouch");
+
+        public bool isSheathed { get; private set; } = true;
 
         public float ColliderSize
         {
@@ -105,17 +110,20 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         #endregion
 
         #region FSM
+
         // default states
         public StateMachine movementSM { get; private set; }
         public StandingState standing { get; private set; }
         public DuckingState ducking { get; private set; }
         public JumpingState jumping { get; private set; }
+
         // attack states
         public StateMachine attackSM { get; private set; }
         public WeaponIdleState weaponIdle { get; private set; }
         public DrawState draw { get; private set; }
         public SheathState sheath { get; private set; }
         public AttackState attack { get; private set; }
+
         #endregion
 
         #region Methods
@@ -159,6 +167,11 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             anim.SetTrigger(param);
         }
 
+        public float GetAnimationDuration(int layer)
+        {
+            return anim.GetCurrentAnimatorStateInfo(layer).length;
+        }
+
         public void Shoot()
         {
             TriggerAnimation(shootParam);
@@ -174,7 +187,11 @@ namespace RayWenderlich.Unity.StatePatternInUnity
 
         public void Equip(GameObject weapon = null)
         {
-            if (weapon != null)
+            if (currentWeapon == weapon)
+            {
+                return;
+            }
+            else if (weapon != null)
             {
                 if (currentWeapon != null) Unequip();
                 currentWeapon = Instantiate(weapon, handTransform.position, handTransform.rotation, handTransform);
@@ -183,6 +200,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             {
                 ParentCurrentWeapon(handTransform);
             }
+
+            isSheathed = false;
         }
 
         public void DiveBomb()
@@ -194,11 +213,13 @@ namespace RayWenderlich.Unity.StatePatternInUnity
 
         public void SheathWeapon()
         {
+            isSheathed = true;
             ParentCurrentWeapon(sheathTransform);
         }
 
         public void Unequip()
         {
+            isSheathed = true;
             Destroy(currentWeapon);
         }
 
@@ -234,6 +255,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             ducking = new DuckingState(this, movementSM);
             jumping = new JumpingState(this, movementSM);
             movementSM.Initialize(standing);
+
             // attack states
             attackSM = new StateMachine();
             weaponIdle = new WeaponIdleState(this, attackSM);
@@ -241,16 +263,20 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             sheath = new SheathState(this, attackSM);
             attack = new AttackState(this, attackSM);
             attackSM.Initialize(weaponIdle);
+            // equip and sheath default melee weapon
+            Equip(MeleeWeapon);
+            SheathWeapon();
         }
 
         private void Update()
         {
-            movementSM?.CurrentState?.HandleInput();
-            movementSM?.CurrentState?.LogicUpdate();
+            movementSM?.Update();
+            attackSM?.Update();
         }
         private void FixedUpdate()
         {
-            movementSM?.CurrentState?.PhysicsUpdate();
+            movementSM?.FixedUpdate();
+            attackSM?.FixedUpdate();
         }
 
         #endregion

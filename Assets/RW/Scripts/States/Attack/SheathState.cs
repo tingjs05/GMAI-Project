@@ -11,26 +11,18 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Enter()
         {
             base.Enter();
+            // trigger animation
+            character.TriggerAnimation(character.SheathMelee);
+            // wait for draw animation duration
+            // Wait(character.GetAnimationDuration(1), () => stateMachine.ChangeState(character.weaponIdle));
+            Wait(0.05f, () => stateMachine.ChangeState(character.weaponIdle));
         }
-        
+
         public override void Exit()
         {
             base.Exit();
-        }
-
-        public override void HandleInput()
-        {
-            base.HandleInput();
-        }
-
-        public override void LogicUpdate()
-        {
-            base.LogicUpdate();
-        }
-
-        public override void PhysicsUpdate()
-        {
-            base.PhysicsUpdate();
+            // sheath weapon
+            character.SheathWeapon();
         }
     }
 }

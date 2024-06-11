@@ -4,8 +4,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
 {
     public class MeleeState : State
     {
-        protected bool attacked;
-        protected bool sheathed;
+        protected bool triggerAttack;
+        protected bool triggerSheath;
 
         public MeleeState(Character character, StateMachine stateMachine) : base(character, stateMachine)
         {
@@ -14,26 +14,27 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Enter()
         {
             base.Enter();
-            attacked = false;
-            character.Equip(character.MeleeWeapon);
-        }
-        
-        public override void Exit()
-        {
-            base.Exit();
-            character.SheathWeapon();
+            triggerAttack = false;
+            triggerSheath = false;
+            character.SetAnimationBool(character.isMelee, true);
         }
 
         public override void HandleInput()
         {
             base.HandleInput();
-            attacked = Input.GetButton("Fire1");
-            sheathed = attacked || Input.GetKey(KeyCode.Q);
+            triggerAttack = Input.GetButtonDown("Fire1");
+            triggerSheath = Input.GetKeyDown(KeyCode.Q) || (triggerAttack && character.isSheathed);
         }
 
-        public override void PhysicsUpdate()
+        public override void LogicUpdate()
         {
-            base.PhysicsUpdate();
+            base.LogicUpdate();
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            character.SetAnimationBool(character.isMelee, false);
         }
     }
 }
