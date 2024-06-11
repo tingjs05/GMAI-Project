@@ -18,7 +18,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             // trigger animation
             character.TriggerAnimation(character.SwingMelee);
             // wait for draw animation duration
-            Wait(0.5f, () => stateMachine.ChangeState(character.weaponIdle));
+            Wait(0.75f, () => stateMachine.ChangeState(character.weaponIdle));
         }
         
         public override void Exit()
