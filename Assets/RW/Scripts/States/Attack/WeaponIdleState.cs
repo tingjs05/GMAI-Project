@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace RayWenderlich.Unity.StatePatternInUnity
 {
-    public class SheathState : MeleeState
+    public class WeaponIdleState : MeleeState
     {
-        public SheathState(Character character, StateMachine stateMachine) : base(character, stateMachine)
+        public WeaponIdleState(Character character, StateMachine stateMachine) : base(character, stateMachine)
         {
         }
 

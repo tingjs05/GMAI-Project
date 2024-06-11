@@ -21,6 +21,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Exit()
         {
             base.Exit();
+            character.SheathWeapon();
         }
 
         public override void HandleInput()

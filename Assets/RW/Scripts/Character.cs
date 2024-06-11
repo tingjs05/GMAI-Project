@@ -105,11 +105,17 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         #endregion
 
         #region FSM
-        public StateMachine movementSM;
         // default states
-        public StandingState standing;
-        public DuckingState ducking;
-        public JumpingState jumping;
+        public StateMachine movementSM { get; private set; }
+        public StandingState standing { get; private set; }
+        public DuckingState ducking { get; private set; }
+        public JumpingState jumping { get; private set; }
+        // attack states
+        public StateMachine attackSM { get; private set; }
+        public WeaponIdleState weaponIdle { get; private set; }
+        public DrawState draw { get; private set; }
+        public SheathState sheath { get; private set; }
+        public AttackState attack { get; private set; }
         #endregion
 
         #region Methods
@@ -170,6 +176,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         {
             if (weapon != null)
             {
+                if (currentWeapon != null) Unequip();
                 currentWeapon = Instantiate(weapon, handTransform.position, handTransform.rotation, handTransform);
             }
             else
@@ -221,12 +228,19 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         #region MonoBehaviour Callbacks
         private void Start()
         {
-            movementSM = new StateMachine();
             // default states
+            movementSM = new StateMachine();
             standing = new StandingState(this, movementSM);
             ducking = new DuckingState(this, movementSM);
             jumping = new JumpingState(this, movementSM);
-            movementSM?.Initialize(standing);
+            movementSM.Initialize(standing);
+            // attack states
+            attackSM = new StateMachine();
+            weaponIdle = new WeaponIdleState(this, attackSM);
+            draw = new DrawState(this, attackSM);
+            sheath = new SheathState(this, attackSM);
+            attack = new AttackState(this, attackSM);
+            attackSM.Initialize(weaponIdle);
         }
 
         private void Update()
