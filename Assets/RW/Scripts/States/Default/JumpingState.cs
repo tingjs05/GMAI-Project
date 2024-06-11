@@ -53,6 +53,9 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+            // update attack fsm
+            character.attackSM?.Update();
+            // check if player is grounded
             if (grounded)
             {
                 character.TriggerAnimation(landParam);
@@ -64,6 +67,9 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
+            // update attack fsm
+            character.attackSM?.FixedUpdate();
+            // check if landed on ground
             grounded = character.CheckCollisionOverlap(character.transform.position);
         }
 

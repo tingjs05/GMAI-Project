@@ -61,8 +61,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         private float diveThreshold = 1f;
         [SerializeField]
         private float collisionOverlapRadius = 0.1f;
-        [SerializeField]
-        private float maxHealth = 100f;
 
         private GameObject currentWeapon;
         private Quaternion currentRotation;
@@ -86,6 +84,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public GameObject MeleeWeapon => data.meleeWeapon;
         public GameObject ShootableWeapon => data.staticShootable;
         public float DiveCooldownTimer => data.diveCooldownTimer;
+        public float RollSpeed => data.rollSpeed;
         public float CollisionOverlapRadius => collisionOverlapRadius;
         public float DiveThreshold => diveThreshold;
         public float MeleeRestThreshold => meleeRestThreshold;
@@ -94,6 +93,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public int SheathMelee => Animator.StringToHash("SheathMelee");
         public int isMelee => Animator.StringToHash("IsMelee");
         public int crouchParam => Animator.StringToHash("Crouch");
+        public int rollParam => Animator.StringToHash("Roll");
 
         public bool isSheathed { get; private set; } = true;
         public float Health { get; private set; }
@@ -120,6 +120,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public StandingState standing { get; private set; }
         public DuckingState ducking { get; private set; }
         public JumpingState jumping { get; private set; }
+        public RollState roll { get; private set; }
 
         // attack states
         public StateMachine attackSM { get; private set; }
@@ -260,6 +261,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             standing = new StandingState(this, movementSM);
             ducking = new DuckingState(this, movementSM);
             jumping = new JumpingState(this, movementSM);
+            roll = new RollState(this, movementSM);
             movementSM.Initialize(standing);
 
             // attack states
@@ -279,18 +281,16 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         private void Start()
         {
             // set health
-            Health = maxHealth;
+            Health = data.maxHealth;
         }
 
         private void Update()
         {
             movementSM?.Update();
-            attackSM?.Update();
         }
         private void FixedUpdate()
         {
             movementSM?.FixedUpdate();
-            attackSM?.FixedUpdate();
         }
 
         #endregion

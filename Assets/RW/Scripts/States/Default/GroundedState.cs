@@ -63,9 +63,24 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             horizontalInput = Input.GetAxis("Horizontal");
         }
 
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+            // update attack fsm
+            character.attackSM?.Update();
+            // check roll
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                stateMachine.ChangeState(character.roll);
+            }
+        }
+
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
+            // update attack fsm
+            character.attackSM?.FixedUpdate();
+            // move player
             character.Move(verticalInput * speed, horizontalInput * rotationSpeed);
         }
     }
