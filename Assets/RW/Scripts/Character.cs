@@ -106,6 +106,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
 
         #region FSM
         public StateMachine movementSM;
+        // default states
         public StandingState standing;
         public DuckingState ducking;
         public JumpingState jumping;
@@ -221,6 +222,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         private void Start()
         {
             movementSM = new StateMachine();
+            // default states
             standing = new StandingState(this, movementSM);
             ducking = new DuckingState(this, movementSM);
             jumping = new JumpingState(this, movementSM);
