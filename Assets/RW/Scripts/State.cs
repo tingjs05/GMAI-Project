@@ -27,6 +27,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+using System;
+using System.Collections;
+using UnityEngine;
 
 namespace RayWenderlich.Unity.StatePatternInUnity
 {
@@ -34,6 +37,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
     {
         protected Character character;
         protected StateMachine stateMachine;
+        Coroutine coroutine;
 
         protected State(Character character, StateMachine stateMachine)
         {
@@ -44,6 +48,19 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         protected void DisplayOnUI(UIManager.Alignment alignment)
         {
             UIManager.Instance.Display(this, alignment);
+        }
+
+        // method to wait for set time
+        protected void Wait(float duration, Action callback = null)
+        {
+            if (coroutine != null) character.StopCoroutine(coroutine);
+            coroutine = character.StartCoroutine(WaitForSeconds(duration, callback));
+        }
+
+        IEnumerator WaitForSeconds(float duraion, Action callback = null)
+        {
+            yield return new WaitForSeconds(duraion);
+            callback?.Invoke();
         }
 
         // virtual methods to be overridden by children
