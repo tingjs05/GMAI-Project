@@ -34,5 +34,16 @@ namespace RayWenderlich.Unity.StatePatternInUnity
     {
         public State CurrentState { get; private set; }
 
+        public void Initialize(State startingState)
+        {
+            CurrentState = startingState;
+            CurrentState?.Enter();
+        }
+        public void ChangeState(State newState)
+        {
+            newState?.Exit();
+            CurrentState = newState;
+            CurrentState?.Enter();
+        }
     }
 }
