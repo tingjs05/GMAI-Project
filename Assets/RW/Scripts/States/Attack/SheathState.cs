@@ -11,10 +11,11 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Enter()
         {
             base.Enter();
+            // play sound
+            SoundManager.Instance.PlaySound(SoundManager.Instance.meleeSheath);
             // trigger animation
             character.TriggerAnimation(character.SheathMelee);
             // wait for draw animation duration
-            // Wait(character.GetAnimationDuration(1), () => stateMachine.ChangeState(character.weaponIdle));
             Wait(0.05f, () => stateMachine.ChangeState(character.weaponIdle));
         }
 

@@ -28,10 +28,10 @@ namespace RayWenderlich.Unity.StatePatternInUnity
                 return;
             }
 
-            // if (triggerAttack)
-            // {
-            //     stateMachine.ChangeState(character.attack);
-            // }
+            if (triggerAttack)
+            {
+                stateMachine.ChangeState(character.attack);
+            }
         }
     }
 }

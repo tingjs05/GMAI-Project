@@ -167,11 +167,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             anim.SetTrigger(param);
         }
 
-        public float GetAnimationDuration(int layer)
-        {
-            return anim.GetCurrentAnimatorStateInfo(layer).length;
-        }
-
         public void Shoot()
         {
             TriggerAnimation(shootParam);

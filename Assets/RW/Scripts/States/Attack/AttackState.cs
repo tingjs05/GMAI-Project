@@ -11,26 +11,21 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Enter()
         {
             base.Enter();
+            // play sound
+            SoundManager.Instance.PlaySound(SoundManager.Instance.meleeSwings[0]);
+            // activate hitbox
+            character.ActivateHitBox();
+            // trigger animation
+            character.TriggerAnimation(character.SwingMelee);
+            // wait for draw animation duration
+            Wait(0.25f, () => stateMachine.ChangeState(character.weaponIdle));
         }
         
         public override void Exit()
         {
             base.Exit();
-        }
-
-        public override void HandleInput()
-        {
-            base.HandleInput();
-        }
-
-        public override void LogicUpdate()
-        {
-            base.LogicUpdate();
-        }
-
-        public override void PhysicsUpdate()
-        {
-            base.PhysicsUpdate();
+            // deactivate hitbox
+            character.DeactivateHitBox();
         }
     }
 }
