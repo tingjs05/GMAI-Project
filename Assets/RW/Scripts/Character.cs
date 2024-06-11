@@ -33,7 +33,7 @@ using UnityEngine;
 namespace RayWenderlich.Unity.StatePatternInUnity
 {
     [RequireComponent(typeof(CapsuleCollider))]
-    public class Character : MonoBehaviour
+    public class Character : MonoBehaviour, IDamagable
     {
         #region Variables
 
@@ -61,6 +61,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         private float diveThreshold = 1f;
         [SerializeField]
         private float collisionOverlapRadius = 0.1f;
+        [SerializeField]
+        private float maxHealth = 100f;
 
         private GameObject currentWeapon;
         private Quaternion currentRotation;
@@ -93,6 +95,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public int crouchParam => Animator.StringToHash("Crouch");
 
         public bool isSheathed { get; private set; } = true;
+        public float Health { get; private set; }
 
         public float ColliderSize
         {
@@ -127,6 +130,10 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         #endregion
 
         #region Methods
+        public void Damage(float damage)
+        {
+            Health -= damage;
+        }
 
         public void Move(float speed, float rotationSpeed)
         {
@@ -242,7 +249,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         #endregion
 
         #region MonoBehaviour Callbacks
-        private void Start()
+        private void Awake()
         {
             // default states
             movementSM = new StateMachine();
@@ -261,6 +268,12 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             // equip and sheath default melee weapon
             Equip(MeleeWeapon);
             SheathWeapon();
+        }
+
+        private void Start()
+        {
+            // set health
+            Health = maxHealth;
         }
 
         private void Update()
