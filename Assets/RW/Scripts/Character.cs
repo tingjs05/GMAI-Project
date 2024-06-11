@@ -28,6 +28,7 @@
  * THE SOFTWARE.
  */
 
+using System.Linq;
 using UnityEngine;
 
 namespace RayWenderlich.Unity.StatePatternInUnity
@@ -178,6 +179,11 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public void TriggerAnimation(int param)
         {
             anim.SetTrigger(param);
+        }
+
+        public AnimatorStateInfo GetAnimationState(int layer)
+        {
+            return anim.GetCurrentAnimatorStateInfo(layer);
         }
 
         public void Shoot()

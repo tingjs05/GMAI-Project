@@ -17,8 +17,14 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             character.ActivateHitBox();
             // trigger animation
             character.TriggerAnimation(character.SwingMelee);
-            // wait for draw animation duration
-            Wait(0.75f, () => stateMachine.ChangeState(character.weaponIdle));
+        }
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+            // check if animation has ended, if so, switch state
+            if (character.GetAnimationState(1).normalizedTime < 1) return;
+            stateMachine.ChangeState(character.weaponIdle);
         }
         
         public override void Exit()

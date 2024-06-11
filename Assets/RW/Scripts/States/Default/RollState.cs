@@ -19,8 +19,14 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             character.ActivateHitBox();
             // trigger animation
             character.TriggerAnimation(character.rollParam);
-            // wait for draw animation duration
-            Wait(0.5f, () => stateMachine.ChangeState(character.standing));
+        }
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+            // check if animation has ended, if so, switch state
+            if (character.GetAnimationState(0).normalizedTime < 1) return;
+            stateMachine.ChangeState(character.standing);
         }
 
         public override void PhysicsUpdate()
