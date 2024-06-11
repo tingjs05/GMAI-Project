@@ -127,6 +127,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public DrawState draw { get; private set; }
         public SheathState sheath { get; private set; }
         public AttackState attack { get; private set; }
+        public AttackState1 attack1 { get; private set; }
+        public AttackState2 attack2 { get; private set; }
 
         #endregion
 
@@ -266,6 +268,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             draw = new DrawState(this, attackSM);
             sheath = new SheathState(this, attackSM);
             attack = new AttackState(this, attackSM);
+            attack1 = new AttackState1(this, attackSM);
+            attack2 = new AttackState2(this, attackSM);
             attackSM.Initialize(weaponIdle);
             // equip and sheath default melee weapon
             Equip(MeleeWeapon);

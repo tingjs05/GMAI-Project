@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace RayWenderlich.Unity.StatePatternInUnity
 {
-    public class AttackState : MeleeState
+    public class AttackState1 : MeleeState
     {
         bool hasEnded, attacked;
 
-        public AttackState(Character character, StateMachine stateMachine) : base(character, stateMachine)
+        public AttackState1(Character character, StateMachine stateMachine) : base(character, stateMachine)
         {
         }
 
@@ -36,7 +36,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
                 attacked = true;
             // check exit
             if (hasEnded)
-                stateMachine.ChangeState(attacked ? character.attack1 : character.weaponIdle);
+                stateMachine.ChangeState(attacked ? character.attack2 : character.weaponIdle);
         }
 
         public override void Exit()
