@@ -46,5 +46,16 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             CurrentState = newState;
             CurrentState?.Enter();
         }
+
+        public void Update()
+        {
+            CurrentState?.HandleInput();
+            CurrentState?.LogicUpdate();
+        }
+
+        public void FixedUpdate()
+        {
+            CurrentState?.PhysicsUpdate();
+        }
     }
 }
