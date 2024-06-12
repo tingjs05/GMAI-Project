@@ -7,7 +7,7 @@ using Astar.Pathfinding;
 public class SpiderController : MonoBehaviour
 {
     // componenets
-    public SpiderData data { get; private set;}
+    public SpiderData data { get; private set; }
     public Agent agent { get; private set; }
     public Animator anim { get; private set; }
 
