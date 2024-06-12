@@ -164,8 +164,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 15
-  walkSpeed: 7
-  runSpeed: 12
+  walkSpeed: 12
+  runSpeed: 15
   damage: 5
   strongDamage: 15
   patrolRange: 10
@@ -201,8 +201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57d395f4d3547144b82d8e197339c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
-  stoppingDistance: 3
+  speed: 12
+  stoppingDistance: 2.5
   showGizmos: 1
 --- !u!1 &2636536146708592706
 GameObject:
