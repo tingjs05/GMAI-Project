@@ -8,6 +8,15 @@ public class SpiderPatrolTask : SpiderTasks
     [Task]
     public void Patrol()
     {
-        ThisTask.Fail();
+        // set the bot speed to walk speed
+        bot.agent.speed = bot.data.WalkSpeed;
+        // set a new destination if reached target location
+        if (bot.agent.remainingDistance <= bot.agent.stoppingDistance)
+        {
+            // get a random point to walk to and set target position to walk towards
+            bot.agent.SetDestination(bot.RandomPoint(transform.position, bot.data.PatrolRange));
+        }
+        // complete task
+        ThisTask.Succeed();
     }
 }

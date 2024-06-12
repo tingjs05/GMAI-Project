@@ -20,6 +20,10 @@ public class SpiderData : MonoBehaviour
     [Header("Durations")]
     [SerializeField] float stunDuration = 5f;
 
+    [Header("Parry")]
+    [SerializeField, Range(0f, 1f)] float normalizedStartParryWindow = 0.3f;
+    [SerializeField, Range(0f, 1f)] float normalizedParryWindow = 0.25f;
+
 
     [Header("Others")]
     [SerializeField] LayerMask playerMask;
