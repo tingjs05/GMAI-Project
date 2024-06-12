@@ -261,8 +261,15 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         #endregion
 
         #region MonoBehaviour Callbacks
-        private void Awake()
+        
+        private void Start()
         {
+            // get rigidbody component
+            rb = GetComponent<Rigidbody>();
+            // set health
+            Health = data.maxHealth;
+
+            // set up FSMs
             // default states
             movementSM = new StateMachine();
             standing = new StandingState(this, movementSM);
@@ -283,14 +290,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             // equip and sheath default melee weapon
             Equip(MeleeWeapon);
             SheathWeapon();
-        }
-
-        private void Start()
-        {
-            // get rigidbody component
-            rb = GetComponent<Rigidbody>();
-            // set health
-            Health = data.maxHealth;
         }
 
         private void Update()
