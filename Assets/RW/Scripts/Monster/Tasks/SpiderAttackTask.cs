@@ -63,6 +63,8 @@ public class SpiderAttackTask : SpiderTask
         return false;
     }
 
+    float timeInAction = 0f;
+
     [Task]
     public void StrongAttack()
     {
@@ -70,14 +72,14 @@ public class SpiderAttackTask : SpiderTask
         if (taskCompleted)
         {
             taskCompleted = false;
-            ThisTask.Fail();
+            ThisTask.Succeed();
             return;
         }
 
-        // activate hitbox
-        bot.hitbox.SetActive(true);
+        // increment time in action
+        timeInAction += Time.deltaTime;
         // get animation normalized time
-        float normalizedTime = bot.anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
+        float normalizedTime = timeInAction / bot.data.StrongAttackDuration;
 
         // check parry
         if (normalizedTime >= bot.data.NormalizedStartParryWindow && 
@@ -95,23 +97,19 @@ public class SpiderAttackTask : SpiderTask
             bot.Damaged -= Parried;
             // hide parry indicator
             bot.parryIndicator.SetActive(false);
+            // activate hitbox
+            bot.hitbox.SetActive(true);
         }
 
-        // check if animation has ended
-        if (normalizedTime < 1f) return;
-        bot.hitbox.SetActive(false);
-        ThisTask.Succeed();
+        // count attack duration
+        if (bot.CounterRunning()) return;
+        timeInAction = 0f;
+        bot.CountDuration(bot.data.StrongAttackDuration, () => taskCompleted = true);
     }
 
     // normal attack
     [Task]
-    public void Attack1()
-    {
-        ThisTask.Fail();
-    }
-
-    [Task]
-    public void Attack2()
+    public void Attack(int combo)
     {
         ThisTask.Fail();
     }

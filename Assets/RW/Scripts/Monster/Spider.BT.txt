@@ -19,9 +19,9 @@ tree("Attack")
             sequence
                 CanStrongAttack
                 StrongAttack
-            sequence
-                Attack1
-                Attack2
+            // sequence
+            //     Attack(1)
+            //     Attack(2)
 
 tree("Patrol")
     Patrol

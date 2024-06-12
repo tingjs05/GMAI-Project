@@ -21,10 +21,18 @@ public class SpiderPrioritiesTasks : SpiderTask
     [Task]
     public void Die()
     {
-        // destroy game object after death animation
-        if (bot.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) return;
-        Destroy(gameObject);
-        ThisTask.Succeed();
+        if (taskCompleted)
+        {
+            taskCompleted = false;
+            // destroy game object after death animation
+            Destroy(gameObject);
+            // mark task as successful
+            ThisTask.Succeed();
+            return;
+        }
+        // count duration for death animation
+        if (bot.CounterRunning()) return;
+        bot.CountDuration(bot.data.DeathDuration, () => taskCompleted = true);
     }
 
     // stun tree

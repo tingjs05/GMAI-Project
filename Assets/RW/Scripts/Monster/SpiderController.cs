@@ -10,9 +10,7 @@ public class SpiderController : MonoBehaviour, IDamagable
     public float Health { get; private set; }
     public bool Died { get; private set; }
     public bool Stunned { get; private set; }
-
-    // public variables
-    [HideInInspector] public bool CanStrongAttack;
+    public bool CanStrongAttack { get; set; }
 
     // components
     public SpiderData data { get; private set; }
