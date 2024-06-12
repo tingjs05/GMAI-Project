@@ -50,17 +50,7 @@ public class SpiderAttackTask : SpiderTask
     [Task]
     public bool CanStrongAttack()
     {
-        if (bot.CanStrongAttack)
-        {
-            // reset movement param
-            bot.anim.SetFloat("x", 0f);
-            // trigger animation
-            bot.anim.SetTrigger("StrongAttack");
-            // disallow strong attack
-            bot.CanStrongAttack = false;
-            return true;
-        }
-        return false;
+        return bot.CanStrongAttack;
     }
 
     float timeInAction = 0f;
@@ -103,8 +93,22 @@ public class SpiderAttackTask : SpiderTask
 
         // count attack duration
         if (bot.CounterRunning()) return;
+        // reset movement param
+        bot.anim.SetFloat("x", 0f);
+        // trigger animation
+        bot.anim.SetTrigger("StrongAttack");
+        // disallow strong attack
+        bot.CanStrongAttack = false;
+        // reset time in action
         timeInAction = 0f;
-        bot.CountDuration(bot.data.StrongAttackDuration, () => taskCompleted = true);
+        // start coroutine to count duration in state
+        bot.CountDuration(bot.data.StrongAttackDuration, () => 
+            {
+                taskCompleted = true;
+                timeInAction = 0f;
+                // deactivate hitbox
+                bot.hitbox.SetActive(false);
+            });
     }
 
     // normal attack
@@ -121,6 +125,10 @@ public class SpiderAttackTask : SpiderTask
         bot.Damaged -= Parried;
         // set stun to true
         bot.SetStun(true);
+        // hide parry indicator
+        bot.parryIndicator.SetActive(false);
+        // deactivate hitbox
+        bot.hitbox.SetActive(false);
         // interrupt task
         taskCompleted = true;
     }

@@ -6456,21 +6456,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 330979793811293115, guid: bb6e0dcf07dc43e498694da3d254a063,
-        type: 3}
-      propertyPath: deathDuration
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 330979793811293115, guid: bb6e0dcf07dc43e498694da3d254a063,
-        type: 3}
-      propertyPath: attackDuration
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 330979793811293115, guid: bb6e0dcf07dc43e498694da3d254a063,
-        type: 3}
-      propertyPath: strongAttackDuration
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 530084261870707524, guid: bb6e0dcf07dc43e498694da3d254a063,
         type: 3}
       propertyPath: m_Name

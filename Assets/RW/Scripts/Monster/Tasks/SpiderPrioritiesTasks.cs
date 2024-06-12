@@ -48,17 +48,22 @@ public class SpiderPrioritiesTasks : SpiderTask
         // complete task once counter is over
         if (taskCompleted)
         {
+            // set task as complete
             taskCompleted = false;
+            bot.SetStun(false);
             ThisTask.Succeed();
+            // unflip spider
+            transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
+            transform.localRotation = Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 0f);
             return;
         }
 
         // only start coroutine counter if not already running
         if (!bot.CounterRunning()) return;
-        bot.CountDuration(bot.data.StunDuration, () => 
-            {
-                bot.SetStun(false);
-                taskCompleted = true;
-            });
+        // start coroutine
+        bot.CountDuration(bot.data.StunDuration, () => taskCompleted = true);
+        // flip spider
+        transform.position = new Vector3(transform.position.x, 2f, transform.position.z);
+        transform.localRotation = Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 180f);
     }
 }
