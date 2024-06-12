@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 39387578}
   - component: {fileID: 39387577}
   - component: {fileID: 39387576}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Bench
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2257,7 +2257,7 @@ PrefabInstance:
     - target: {fileID: -7333140942547540826, guid: acd565c301615984294de13396cc7746,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -7333140942547540826, guid: acd565c301615984294de13396cc7746,
         type: 3}
@@ -2277,7 +2277,7 @@ PrefabInstance:
     - target: {fileID: -4587731042408410434, guid: acd565c301615984294de13396cc7746,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -4587731042408410434, guid: acd565c301615984294de13396cc7746,
         type: 3}
@@ -2372,7 +2372,7 @@ PrefabInstance:
     - target: {fileID: -3264926968328976238, guid: acd565c301615984294de13396cc7746,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -3264926968328976238, guid: acd565c301615984294de13396cc7746,
         type: 3}
@@ -2392,7 +2392,7 @@ PrefabInstance:
     - target: {fileID: -1087546789553343396, guid: acd565c301615984294de13396cc7746,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -1087546789553343396, guid: acd565c301615984294de13396cc7746,
         type: 3}
@@ -2417,7 +2417,7 @@ PrefabInstance:
     - target: {fileID: -701153285449715892, guid: acd565c301615984294de13396cc7746,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -701153285449715892, guid: acd565c301615984294de13396cc7746,
         type: 3}
@@ -2427,7 +2427,7 @@ PrefabInstance:
     - target: {fileID: -650722757169144853, guid: acd565c301615984294de13396cc7746,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -650722757169144853, guid: acd565c301615984294de13396cc7746,
         type: 3}
@@ -5212,6 +5212,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1640592709}
+  - component: {fileID: 1640592710}
   m_Layer: 0
   m_Name: Grid Manager
   m_TagString: Untagged
@@ -5234,6 +5235,30 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1640592710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640592708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b87541768dd6764bb4673ed4838f1f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointOfOrigin: {x: -22, y: 0, z: -22}
+  gridSize: {x: 42.5, y: 44}
+  gridFrequency: 0.5
+  gridObstacleDetectionRange: 0.6
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  showGridSetupGizmos: 0
+  showObstacleDetectionRange: 0
+  showNodeConnections: 0
+  showObstructedNodes: 1
+  showGizmos: 0
 --- !u!1001 &1712083588
 PrefabInstance:
   m_ObjectHideFlags: 0
