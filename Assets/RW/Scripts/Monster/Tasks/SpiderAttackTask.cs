@@ -22,6 +22,14 @@ public class SpiderAttackTask : SpiderTask
     [Task]
     public void ChaseTarget()
     {
+        // check for task completion
+        if (taskCompleted)
+        {
+            taskCompleted = false;
+            ThisTask.Fail();
+            return;
+        }
+
         // ensure player is within range
         if (!bot.PlayerNearby(bot.data.DetectionRange, out Transform player))
         {
@@ -42,13 +50,57 @@ public class SpiderAttackTask : SpiderTask
     [Task]
     public bool CanStrongAttack()
     {
+        if (bot.CanStrongAttack)
+        {
+            // reset movement param
+            bot.anim.SetFloat("x", 0f);
+            // trigger animation
+            bot.anim.SetTrigger("StrongAttack");
+            // disallow strong attack
+            bot.CanStrongAttack = false;
+            return true;
+        }
         return false;
     }
 
     [Task]
     public void StrongAttack()
     {
-        ThisTask.Fail();
+        // check for task completion
+        if (taskCompleted)
+        {
+            taskCompleted = false;
+            ThisTask.Fail();
+            return;
+        }
+
+        // activate hitbox
+        bot.hitbox.SetActive(true);
+        // get animation normalized time
+        float normalizedTime = bot.anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
+
+        // check parry
+        if (normalizedTime >= bot.data.NormalizedStartParryWindow && 
+            normalizedTime <= (bot.data.NormalizedStartParryWindow + bot.data.NormalizedParryWindow))
+        {
+            // subscribe to damaged event
+            bot.Damaged += Parried;
+            // show parry indicator
+            bot.parryIndicator.SetActive(true);
+        }
+        // stop parry window
+        else
+        {
+            // unsubscribe from damaged event
+            bot.Damaged -= Parried;
+            // hide parry indicator
+            bot.parryIndicator.SetActive(false);
+        }
+
+        // check if animation has ended
+        if (normalizedTime < 1f) return;
+        bot.hitbox.SetActive(false);
+        ThisTask.Succeed();
     }
 
     // normal attack
@@ -62,5 +114,16 @@ public class SpiderAttackTask : SpiderTask
     public void Attack2()
     {
         ThisTask.Fail();
+    }
+
+    // parry event listener
+    void Parried(float damage)
+    {
+        // unsubscribe from event
+        bot.Damaged -= Parried;
+        // set stun to true
+        bot.SetStun(true);
+        // interrupt task
+        taskCompleted = true;
     }
 }

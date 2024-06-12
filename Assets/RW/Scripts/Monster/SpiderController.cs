@@ -10,7 +10,9 @@ public class SpiderController : MonoBehaviour, IDamagable
     public float Health { get; private set; }
     public bool Died { get; private set; }
     public bool Stunned { get; private set; }
-    public bool CanStrongAttack { get; private set; }
+
+    // public variables
+    [HideInInspector] public bool CanStrongAttack;
 
     // components
     public SpiderData data { get; private set; }
@@ -18,12 +20,15 @@ public class SpiderController : MonoBehaviour, IDamagable
     public Animator anim { get; private set; }
 
     // children objects
-    GameObject hitbox;
-    GameObject parryIndicator;
+    public GameObject hitbox { get; private set; }
+    public GameObject parryIndicator { get; private set; }
 
     // coroutine
     private Coroutine coroutine;
-    
+
+    // events
+    public event System.Action<float> Damaged;
+    public event System.Action CancelTask;
 
     // Start is called before the first frame update
     void Start()
@@ -41,20 +46,28 @@ public class SpiderController : MonoBehaviour, IDamagable
         // set booleans
         Died = false;
         Stunned = false;
-        CanStrongAttack = false;
 
         // hide children objects
         hitbox.SetActive(false);
         parryIndicator.SetActive(false);
+
+        // set strong attack
+        ResetStrongAttack();
+        CanStrongAttack = false;
     }
 
     // interface method - damage enemy
     public void Damage(float damage)
     {
+        // take damage
         Health -= damage;
+        // invoke event
+        Damaged?.Invoke(damage);
         // check if enemy has been killed
         if (Health > 0) return;
         Died = true;
+        // invoke event
+        CancelTask?.Invoke();
     }
 
     // method to set stun
@@ -81,6 +94,20 @@ public class SpiderController : MonoBehaviour, IDamagable
     {
         return coroutine != null;
     }
+
+    // method to run coroutine to reset can strong attack
+    void ResetStrongAttack()
+    {
+        // reset strong attack
+        CanStrongAttack = true;
+        // start coroutine
+        StartCoroutine(CountDurationCoroutine(
+                Random.Range(data.StrongAttackResetRate.x, data.StrongAttackResetRate.y), 
+                () => ResetStrongAttack(), 
+                false
+            ));
+    }
+
 
     // check if player is nearby within a certain range around the enemy
     public bool PlayerNearby(float range, out Transform player)
@@ -114,7 +141,7 @@ public class SpiderController : MonoBehaviour, IDamagable
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, data.PatrolRange);
         // draw detection range
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, data.DetectionRange);
     }
 }

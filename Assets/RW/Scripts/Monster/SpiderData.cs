@@ -19,6 +19,7 @@ public class SpiderData : MonoBehaviour
 
     [Header("Durations")]
     [SerializeField] float stunDuration = 5f;
+    [SerializeField] Vector2 strongAttackResetRate;
 
     [Header("Parry")]
     [SerializeField, Range(0f, 1f)] float normalizedStartParryWindow = 0.3f;
@@ -46,6 +47,11 @@ public class SpiderData : MonoBehaviour
 
     // durations
     public float StunDuration => stunDuration;
+    public Vector2 StrongAttackResetRate => strongAttackResetRate;
+
+    // parry
+    public float NormalizedStartParryWindow => normalizedStartParryWindow;
+    public float NormalizedParryWindow => normalizedParryWindow;
 
     // others
     public LayerMask PlayerMask => playerMask;

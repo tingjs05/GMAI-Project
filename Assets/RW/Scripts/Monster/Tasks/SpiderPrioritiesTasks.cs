@@ -22,7 +22,7 @@ public class SpiderPrioritiesTasks : SpiderTask
     public void Die()
     {
         // destroy game object after death animation
-        if (bot.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1) return;
+        if (bot.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f) return;
         Destroy(gameObject);
         ThisTask.Succeed();
     }
