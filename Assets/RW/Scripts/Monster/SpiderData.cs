@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class SpiderData : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    #region Private Variables
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("Stats")]
+    [SerializeField] float maxHealth = 15f;
+    [SerializeField] float walkSpeed = 7f;
+    [SerializeField] float runSpeed = 12f;
+
+    #endregion
+
+    #region Public Variables
+
+    #endregion
+
+    #region Properties
+
+    public float MaxHealth => maxHealth;
+
+    #endregion
 }

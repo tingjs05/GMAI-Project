@@ -5,5 +5,9 @@ using Panda;
 
 public class SpiderPatrolTask : SpiderTasks
 {
-    
+    [Task]
+    public void Patrol()
+    {
+        ThisTask.Fail();
+    }
 }

@@ -5,7 +5,23 @@ tree("Root")
         tree("Patrol")
 
 tree("Priorities")
+    fallback
+        while CheckDeath
+            Die
+        while CheckStun
+            Stun
 
 tree("Attack")
+    sequence
+        while TargetWithinRange
+            ChaseTarget
+        fallback
+            sequence
+                CanStrongAttack
+                StrongAttack
+            sequence
+                Attack1
+                Attack2
 
 tree("Patrol")
+    Patrol
