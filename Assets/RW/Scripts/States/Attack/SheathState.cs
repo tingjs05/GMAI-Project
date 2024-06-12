@@ -13,17 +13,18 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             base.Enter();
             // play sound
             SoundManager.Instance.PlaySound(SoundManager.Instance.meleeSheath);
-            // trigger animation
-            character.TriggerAnimation(character.SheathMelee);
-            // wait for draw animation duration
-            Wait(0.05f, () => stateMachine.ChangeState(character.weaponIdle));
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
             // sheath weapon
             character.SheathWeapon();
+            // trigger animation
+            character.TriggerAnimation(character.SheathMelee);
+        }
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+            // check if animation has ended, if so, switch state
+            if (character.GetAnimationState(1).normalizedTime < 1) return;
+            stateMachine.ChangeState(character.weaponIdle);
         }
     }
 }

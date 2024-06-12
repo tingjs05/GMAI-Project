@@ -28,12 +28,13 @@
  * THE SOFTWARE.
  */
 
+using System.Linq;
 using UnityEngine;
 
 namespace RayWenderlich.Unity.StatePatternInUnity
 {
     [RequireComponent(typeof(CapsuleCollider))]
-    public class Character : MonoBehaviour
+    public class Character : MonoBehaviour, IDamagable
     {
         #region Variables
 
@@ -68,6 +69,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         private int verticalMoveParam = Animator.StringToHash("V_Speed");
         private int shootParam = Animator.StringToHash("Shoot");
         private int hardLanding = Animator.StringToHash("HardLand");
+        private int hitParam = Animator.StringToHash("Hit");
         #endregion
 
         #region Properties
@@ -83,6 +85,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public GameObject MeleeWeapon => data.meleeWeapon;
         public GameObject ShootableWeapon => data.staticShootable;
         public float DiveCooldownTimer => data.diveCooldownTimer;
+        public float RollSpeed => data.rollSpeed;
         public float CollisionOverlapRadius => collisionOverlapRadius;
         public float DiveThreshold => diveThreshold;
         public float MeleeRestThreshold => meleeRestThreshold;
@@ -91,8 +94,11 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public int SheathMelee => Animator.StringToHash("SheathMelee");
         public int isMelee => Animator.StringToHash("IsMelee");
         public int crouchParam => Animator.StringToHash("Crouch");
+        public int rollParam => Animator.StringToHash("Roll");
 
+        public Rigidbody rb { get; private set; }
         public bool isSheathed { get; private set; } = true;
+        public float Health { get; private set; }
 
         public float ColliderSize
         {
@@ -116,6 +122,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public StandingState standing { get; private set; }
         public DuckingState ducking { get; private set; }
         public JumpingState jumping { get; private set; }
+        public RollState roll { get; private set; }
 
         // attack states
         public StateMachine attackSM { get; private set; }
@@ -123,38 +130,45 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public DrawState draw { get; private set; }
         public SheathState sheath { get; private set; }
         public AttackState attack { get; private set; }
+        public AttackState1 attack1 { get; private set; }
+        public AttackState2 attack2 { get; private set; }
 
         #endregion
 
         #region Methods
+        public void Damage(float damage)
+        {
+            Health -= damage;
+            TriggerAnimation(hitParam);
+        }
 
         public void Move(float speed, float rotationSpeed)
         {
             Vector3 targetVelocity = speed * transform.forward * Time.deltaTime;
-            targetVelocity.y = GetComponent<Rigidbody>().velocity.y;
-            GetComponent<Rigidbody>().velocity = targetVelocity;
+            targetVelocity.y = rb.velocity.y;
+            rb.velocity = targetVelocity;
 
-            GetComponent<Rigidbody>().angularVelocity = rotationSpeed * Vector3.up * Time.deltaTime;
+            rb.angularVelocity = rotationSpeed * Vector3.up * Time.deltaTime;
 
-            if (targetVelocity.magnitude > 0.01f || GetComponent<Rigidbody>().angularVelocity.magnitude > 0.01f)
+            if (targetVelocity.magnitude > 0.01f || rb.angularVelocity.magnitude > 0.01f)
             {
                 SoundManager.Instance.PlayFootSteps(Mathf.Abs(speed));
             }
 
-            anim.SetFloat(horizonalMoveParam, GetComponent<Rigidbody>().angularVelocity.y);
+            anim.SetFloat(horizonalMoveParam, rb.angularVelocity.y);
             anim.SetFloat(verticalMoveParam, speed * Time.deltaTime);
         }
 
         public void ResetMoveParams()
         {
-            GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
             anim.SetFloat(horizonalMoveParam, 0f);
             anim.SetFloat(verticalMoveParam, 0f);
         }
 
         public void ApplyImpulse(Vector3 force)
         {
-            GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
+            rb.AddForce(force, ForceMode.Impulse);
         }
 
         public void SetAnimationBool(int param, bool value)
@@ -165,6 +179,11 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public void TriggerAnimation(int param)
         {
             anim.SetTrigger(param);
+        }
+
+        public AnimatorStateInfo GetAnimationState(int layer)
+        {
+            return anim.GetCurrentAnimatorStateInfo(layer);
         }
 
         public void Shoot()
@@ -242,13 +261,14 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         #endregion
 
         #region MonoBehaviour Callbacks
-        private void Start()
+        private void Awake()
         {
             // default states
             movementSM = new StateMachine();
             standing = new StandingState(this, movementSM);
             ducking = new DuckingState(this, movementSM);
             jumping = new JumpingState(this, movementSM);
+            roll = new RollState(this, movementSM);
             movementSM.Initialize(standing);
 
             // attack states
@@ -257,21 +277,29 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             draw = new DrawState(this, attackSM);
             sheath = new SheathState(this, attackSM);
             attack = new AttackState(this, attackSM);
+            attack1 = new AttackState1(this, attackSM);
+            attack2 = new AttackState2(this, attackSM);
             attackSM.Initialize(weaponIdle);
             // equip and sheath default melee weapon
             Equip(MeleeWeapon);
             SheathWeapon();
         }
 
+        private void Start()
+        {
+            // get rigidbody component
+            rb = GetComponent<Rigidbody>();
+            // set health
+            Health = data.maxHealth;
+        }
+
         private void Update()
         {
             movementSM?.Update();
-            attackSM?.Update();
         }
         private void FixedUpdate()
         {
             movementSM?.FixedUpdate();
-            attackSM?.FixedUpdate();
         }
 
         #endregion
