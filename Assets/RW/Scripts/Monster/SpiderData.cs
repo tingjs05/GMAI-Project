@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Astar.Pathfinding;
 
-[RequireComponent(typeof(SpiderData), typeof(Agent))]
-public class SpiderController : MonoBehaviour
+public class SpiderData : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

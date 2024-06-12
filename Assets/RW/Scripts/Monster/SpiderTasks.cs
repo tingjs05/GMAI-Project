@@ -6,7 +6,7 @@ using Panda;
 [RequireComponent(typeof(PandaBehaviour), typeof(SpiderController))] 
 public class SpiderTasks : MonoBehaviour
 {
-    // componenets
+        // componenets
         protected PandaBehaviour panda;
         protected SpiderController bot;
 

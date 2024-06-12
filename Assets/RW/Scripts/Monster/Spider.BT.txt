@@ -3,12 +3,9 @@ tree("Root")
         tree("Priorities")
         tree("Attack")
         tree("Patrol")
-        tree("Idle")
 
 tree("Priorities")
 
 tree("Attack")
 
 tree("Patrol")
-
-tree("Idle")
