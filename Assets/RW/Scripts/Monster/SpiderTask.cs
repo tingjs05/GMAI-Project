@@ -4,7 +4,7 @@ using UnityEngine;
 using Panda;
 
 [RequireComponent(typeof(PandaBehaviour), typeof(SpiderController))] 
-public class SpiderTasks : MonoBehaviour
+public class SpiderTask : MonoBehaviour
 {
         // componenets
         protected PandaBehaviour panda;

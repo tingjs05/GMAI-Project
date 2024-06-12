@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Panda;
 
-public class SpiderPatrolTask : SpiderTasks
+public class SpiderPatrolTask : SpiderTask
 {
     [Task]
     public void Patrol()

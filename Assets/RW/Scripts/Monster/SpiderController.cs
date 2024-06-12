@@ -4,9 +4,14 @@ using UnityEngine;
 using Astar.Pathfinding;
 
 [RequireComponent(typeof(SpiderData), typeof(Agent))]
-public class SpiderController : MonoBehaviour
+public class SpiderController : MonoBehaviour, IDamagable
 {
-    // componenets
+    // public properties
+    public float Health { get; private set; }
+    public bool Died { get; private set; }
+    public bool Stunned { get; private set; }
+
+    // components
     public SpiderData data { get; private set; }
     public Agent agent { get; private set; }
     public Animator anim { get; private set; }
@@ -16,7 +21,8 @@ public class SpiderController : MonoBehaviour
     GameObject parryIndicator;
 
     // coroutine
-    Coroutine coroutine;
+    private Coroutine coroutine;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -25,16 +31,34 @@ public class SpiderController : MonoBehaviour
         data = GetComponent<SpiderData>();
         agent = GetComponent<Agent>();
         anim = GetComponentInChildren<Animator>();
-
         // get children objects
         hitbox = transform.GetChild(1).gameObject;
         parryIndicator = transform.GetChild(2).gameObject;
+
+        // set health
+        Health = data.MaxHealth;
+        // set booleans
+        Died = false;
+        Stunned = false;
+
+        // hide children objects
+        hitbox.SetActive(false);
+        parryIndicator.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    // interface method - damage enemy
+    public void Damage(float damage)
     {
-        
+        Health -= damage;
+        // check if enemy has been killed
+        if (Health > 0) return;
+        Died = true;
+    }
+
+    // method to set stun
+    public void SetStun(bool newStun)
+    {
+        Stunned = newStun;
     }
 
     // coroutines to count duration of an action
@@ -49,6 +73,11 @@ public class SpiderController : MonoBehaviour
         yield return new WaitForSeconds(duration);
         callback?.Invoke();
         if (resetCoroutine) coroutine = null;
+    }
+
+    public bool CounterRunning()
+    {
+        return coroutine != null;
     }
 
     // check if player is nearby within a certain range around the enemy

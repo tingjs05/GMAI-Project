@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Panda;
 
-public class SpiderAttackTask : SpiderTasks
+public class SpiderAttackTask : SpiderTask
 {
     // check and chase target
     [Task]

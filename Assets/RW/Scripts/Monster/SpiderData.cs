@@ -31,10 +31,6 @@ public class SpiderData : MonoBehaviour
 
     #endregion
 
-    #region Public Variables
-
-    #endregion
-
     #region Properties
 
     // stats
