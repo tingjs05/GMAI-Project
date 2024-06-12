@@ -46,6 +46,25 @@ namespace Astar
 
             void FollowPath()
             {
+                // check if reached waypoint by iterating through waypoints to find the next valid waypoint
+                while (currentWayPoint < path.Count && Vector3.Distance(transform.position, path[currentWayPoint].position) < stoppingDistance)
+                {
+                    // iterate current waypoint
+                    currentWayPoint++;
+                }
+
+                // check if reached final waypoint (destination)
+                if (currentWayPoint >= path.Count)
+                {
+                    // reset all path following variables
+                    path = null;
+                    currentWayPoint = -1;
+                    remainingDistance = 0f;
+                    moveDirection = Vector3.zero;
+                    pathfinder.ResetLists();
+                    return;
+                }
+
                 // update remaining distance
                 remainingDistance = Vector3.Distance(transform.position, destination);
                 // get move direction
@@ -54,26 +73,10 @@ namespace Astar
                 rb.velocity = moveDirection * speed;
                 rb.velocity += Physics.gravity;
                 // rotate agent to face move direction if update rotation is true
-                if (updateRotation)
-                { 
-                    rotation = Vector3.RotateTowards(transform.forward, moveDirection, angularSpeed * Time.deltaTime, 0f);
-                    rotation.y = transform.forward.y;
-                    transform.forward = rotation;
-                }
-                // check if reached waypoint
-                if (Vector3.Distance(transform.position, path[currentWayPoint].position) < stoppingDistance)
-                {
-                    // iterate current waypoint
-                    currentWayPoint += 1;
-                    // handle final waypoint
-                    if (currentWayPoint < path.Count) return;
-                    // reset all path following variables
-                    path = null;
-                    currentWayPoint = -1;
-                    remainingDistance = 0f;
-                    moveDirection = Vector3.zero;
-                    pathfinder.ResetLists();
-                }
+                if (!updateRotation) return;
+                rotation = Vector3.RotateTowards(transform.forward, moveDirection, angularSpeed * Time.deltaTime, 0f);
+                rotation.y = transform.forward.y;
+                transform.forward = rotation;
             }
 
             // public methods
