@@ -3793,7 +3793,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1252697823
 Transform:
   m_ObjectHideFlags: 0
@@ -5250,7 +5250,7 @@ MonoBehaviour:
   pointOfOrigin: {x: -22, y: 0, z: -22}
   gridSize: {x: 42.5, y: 44}
   gridFrequency: 0.5
-  gridObstacleDetectionRange: 0.6
+  gridObstacleDetectionRange: 1.5
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 128
@@ -6510,6 +6510,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2056308994710754151, guid: bb6e0dcf07dc43e498694da3d254a063,
+        type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2364347028372832033, guid: bb6e0dcf07dc43e498694da3d254a063,
+        type: 3}
+      propertyPath: stoppingDistance
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
