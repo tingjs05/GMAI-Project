@@ -10,6 +10,7 @@ public class SpiderController : MonoBehaviour, IDamagable
     public float Health { get; private set; }
     public bool Died { get; private set; }
     public bool Stunned { get; private set; }
+    public bool CanStrongAttack { get; private set; }
 
     // components
     public SpiderData data { get; private set; }
@@ -40,6 +41,7 @@ public class SpiderController : MonoBehaviour, IDamagable
         // set booleans
         Died = false;
         Stunned = false;
+        CanStrongAttack = false;
 
         // hide children objects
         hitbox.SetActive(false);
@@ -104,6 +106,8 @@ public class SpiderController : MonoBehaviour, IDamagable
     // draw gizmos
     void OnDrawGizmosSelected() 
     {
+        // ensure data is not null
+        if (data == null) data = GetComponent<SpiderData>();
         // check if need to draw gizmos
         if (!data.ShowGizmos) return;
         // draw patrol range

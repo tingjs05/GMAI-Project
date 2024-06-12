@@ -52,7 +52,7 @@ Rigidbody:
   m_GameObject: {fileID: 530084261870707524}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -68,7 +68,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!136 &934216028794411486
 CapsuleCollider:
@@ -168,12 +168,14 @@ MonoBehaviour:
   runSpeed: 12
   damage: 5
   strongDamage: 15
-  patrolRange: 8
-  detectionRange: 3
+  patrolRange: 10
+  detectionRange: 6
   stunDuration: 5
+  normalizedStartParryWindow: 0.3
+  normalizedParryWindow: 0.25
   playerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   showGizmos: 1
 --- !u!114 &3057663741922467626
 MonoBehaviour:
@@ -199,8 +201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57d395f4d3547144b82d8e197339c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  stoppingDistance: 1
+  speed: 7
+  stoppingDistance: 3
   showGizmos: 1
 --- !u!1 &2636536146708592706
 GameObject:

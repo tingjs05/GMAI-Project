@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Panda;
+using Astar.Pathfinding;
 
 public class SpiderAttackTask : SpiderTask
 {
@@ -9,13 +10,32 @@ public class SpiderAttackTask : SpiderTask
     [Task]
     public bool TargetWithinRange()
     {
+        if (bot.PlayerNearby(bot.data.DetectionRange, out Transform player))
+        {
+            // play running animation
+            bot.anim.SetFloat("x", 2f);
+            return true;
+        }
         return false;
     }
 
     [Task]
     public void ChaseTarget()
     {
-        ThisTask.Fail();
+        // ensure player is within range
+        if (!bot.PlayerNearby(bot.data.DetectionRange, out Transform player))
+        {
+            ThisTask.Fail();
+            return;
+        }
+
+        // chase player by setting speed and destination
+        bot.agent.speed = bot.data.RunSpeed;
+        bot.agent.SetDestination(player.position);
+
+        // succeed task once reached player
+        if (bot.agent.remainingDistance <= bot.agent.stoppingDistance)
+            ThisTask.Succeed();
     }
 
     // strong attack

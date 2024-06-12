@@ -13,6 +13,8 @@ public class SpiderPatrolTask : SpiderTask
         // set a new destination if reached target location
         if (bot.agent.remainingDistance <= bot.agent.stoppingDistance)
         {
+            // play walk animation
+            bot.anim.SetFloat("x", 1f);
             // get a random point to walk to and set target position to walk towards
             bot.agent.SetDestination(bot.RandomPoint(transform.position, bot.data.PatrolRange));
         }
