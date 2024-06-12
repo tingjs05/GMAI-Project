@@ -19,6 +19,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             character.ActivateHitBox();
             // trigger animation
             character.TriggerAnimation(character.rollParam);
+            // display state on UI 
+            DisplayOnUI(UIManager.Alignment.Left);
         }
 
         public override void LogicUpdate()

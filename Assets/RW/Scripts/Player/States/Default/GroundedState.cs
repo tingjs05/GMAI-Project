@@ -48,6 +48,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         {
             base.Enter();
             horizontalInput = verticalInput = 0.0f;
+            // display state on UI
+            DisplayOnUI(UIManager.Alignment.Left);
         }
         
         public override void Exit()

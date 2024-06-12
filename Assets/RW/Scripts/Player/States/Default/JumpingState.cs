@@ -45,9 +45,12 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Enter()
         {
             base.Enter();
+            // initiate jump
             SoundManager.Instance.PlaySound(SoundManager.Instance.jumpSounds);
             grounded = false;
             Jump();
+            // display state on UI
+            DisplayOnUI(UIManager.Alignment.Left);
         }
 
         public override void LogicUpdate()
