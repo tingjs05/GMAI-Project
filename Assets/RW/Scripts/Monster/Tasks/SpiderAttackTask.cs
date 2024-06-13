@@ -43,30 +43,31 @@ public class SpiderAttackTask : SpiderTask
 
         // succeed task once reached player
         if (bot.agent.remainingDistance <= bot.agent.stoppingDistance)
-        {
-            // reset movement param
-            bot.anim.SetFloat("x", 0f);
-            // mark task as successful
             ThisTask.Succeed();
-        }
     }
 
     // strong attack
+    float timeInAction = 0f;
+
     [Task]
     public bool CanStrongAttack()
     {
+        // reset time in action
+        timeInAction = 0f;
         return bot.CanStrongAttack;
     }
-
-    float timeInAction = 0f;
 
     [Task]
     public void StrongAttack()
     {
         // check for task completion
-        if (taskCompleted)
+        if (taskCompleted || timeInAction >= bot.data.StrongAttackDuration)
         {
             taskCompleted = false;
+            timeInAction = 0f;
+            // deactivate hitbox
+            bot.hitbox.SetActive(false);
+            // mark task as successful
             ThisTask.Succeed();
             return;
         }
@@ -97,28 +98,41 @@ public class SpiderAttackTask : SpiderTask
         }
 
         // count attack duration
-        if (bot.CounterRunning()) return;
+        if (timeInAction > 0f) return;
         // trigger animation
         bot.anim.SetTrigger("StrongAttack");
         // disallow strong attack
         bot.CanStrongAttack = false;
-        // reset time in action
-        timeInAction = 0f;
-        // start coroutine to count duration in state
-        bot.CountDuration(bot.data.StrongAttackDuration, () => 
-            {
-                taskCompleted = true;
-                timeInAction = 0f;
-                // deactivate hitbox
-                bot.hitbox.SetActive(false);
-            });
     }
 
     // normal attack
     [Task]
     public void Attack(int combo)
     {
-        ThisTask.Fail();
+        // check for task completion
+        if (taskCompleted)
+        {
+            taskCompleted = false;
+            ThisTask.Succeed();
+            return;
+        }
+
+        // count attack duration
+        if (bot.CounterRunning()) return;
+        // reset movement param
+        bot.anim.SetFloat("x", 0f);
+        // trigger animation
+        bot.anim.SetTrigger("Attack");
+        // activate hitbox
+        bot.hitbox.SetActive(true);
+        // start coroutine to count duration in state
+        // make first hit shorter, and second hit longer
+        bot.CountDuration(bot.data.AttackDuration * (combo == 0 ? 0.75f : 1.2f), () => 
+            {
+                taskCompleted = true;
+                // deactivate hitbox
+                bot.hitbox.SetActive(false);
+            });
     }
 
     // parry event listener

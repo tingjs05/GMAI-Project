@@ -43,8 +43,8 @@ public class SpiderPrioritiesTasks : SpiderTask
             bot.SetStun(false);
             ThisTask.Succeed();
             // unflip spider
-            transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
-            transform.rotation = Quaternion.Euler(0f, transform.rotation.y, 0f);
+            // transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
+            // transform.rotation = Quaternion.Euler(0f, transform.rotation.y, 0f);
             return;
         }
 
@@ -53,7 +53,7 @@ public class SpiderPrioritiesTasks : SpiderTask
         // start coroutine
         bot.CountDuration(bot.data.StunDuration, () => taskCompleted = true);
         // flip spider
-        transform.position = new Vector3(transform.position.x, 2f, transform.position.z);
-        transform.rotation = Quaternion.Euler(transform.forward.x * 180f, transform.rotation.y, transform.forward.z * 180f);
+        // transform.position = new Vector3(transform.position.x, 2f, transform.position.z);
+        // transform.rotation = Quaternion.Euler(transform.forward.x * 180f, transform.rotation.y, transform.forward.z * 180f);
     }
 }
