@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Panda;
+using RayWenderlich.Unity.StatePatternInUnity;
 
 public class SpiderStrongAttackTask : SpiderTask
 {
@@ -48,6 +49,8 @@ public class SpiderStrongAttackTask : SpiderTask
         bot.anim.SetTrigger("StrongAttack");
         // disallow strong attack
         bot.CanStrongAttack = false;
+        // set hitbox damage
+        bot.hitbox.GetComponent<HitBox>()?.SetDamage(bot.data.StrongDamage); 
     }
 
     void EndAttack()

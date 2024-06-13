@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Panda;
-using Astar.Pathfinding;
+using RayWenderlich.Unity.StatePatternInUnity;
 
 public class SpiderAttackTask : SpiderTask
 {
@@ -64,6 +64,8 @@ public class SpiderAttackTask : SpiderTask
         bot.anim.SetFloat("x", 0f);
         // trigger animation
         bot.anim.SetTrigger("Attack");
+        // set hitbox damage
+        bot.hitbox.GetComponent<HitBox>()?.SetDamage(bot.data.Damage); 
         // activate hitbox
         bot.hitbox.SetActive(true);
         // start coroutine to count duration in state

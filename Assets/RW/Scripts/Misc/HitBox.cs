@@ -34,7 +34,13 @@ namespace RayWenderlich.Unity.StatePatternInUnity
 {
     public class HitBox : MonoBehaviour
     {
-        public float damage;
+        [SerializeField] float damage;
+
+        // method to set damage
+        public void SetDamage(float damage)
+        {
+            this.damage = damage;
+        }
 
         //Do damage
         void OnTriggerEnter(Collider other) 
