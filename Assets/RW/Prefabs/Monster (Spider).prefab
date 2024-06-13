@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 12
-  angularSpeed: 1
+  angularSpeed: 5
   stoppingDistance: 3
   updateRotation: 1
   showGizmos: 1

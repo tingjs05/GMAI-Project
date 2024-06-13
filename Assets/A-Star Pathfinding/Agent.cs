@@ -16,11 +16,11 @@ namespace Astar
             public bool updateRotation = true;
             public bool showGizmos = true;
             public float remainingDistance { get; private set; } = 0f;
-            public Vector3 moveDirection { get; private set; } = Vector3.zero;
+            public Vector3 moveDirection => direction;
 
             // variables to control path following
             List<Node> path;
-            Vector3 destination, rotation;
+            Vector3 destination, rotation, direction;
             int currentWayPoint;
             
             // components
@@ -60,7 +60,7 @@ namespace Astar
                     path = null;
                     currentWayPoint = -1;
                     remainingDistance = 0f;
-                    moveDirection = Vector3.zero;
+                    direction = Vector3.zero;
                     pathfinder.ResetLists();
                     return;
                 }
@@ -68,15 +68,17 @@ namespace Astar
                 // update remaining distance
                 remainingDistance = Vector3.Distance(transform.position, destination);
                 // get move direction
-                moveDirection = (path[currentWayPoint].position - transform.position).normalized;
+                direction = (path[currentWayPoint].position - transform.position).normalized;
+                // ignore y-axis or direction
+                direction.y = 0f;
+                
                 // add force to move agent in the direction of waypoint
-                rb.velocity = moveDirection * speed;
+                rb.velocity = direction * speed;
                 rb.velocity += Physics.gravity;
                 // rotate agent to face move direction if update rotation is true
                 if (!updateRotation) return;
-                rotation = Vector3.RotateTowards(transform.forward, moveDirection, angularSpeed * Time.deltaTime, 0f);
-                rotation.y = transform.forward.y;
-                transform.forward = rotation;
+                // rotate towards target direction
+                transform.forward = Vector3.Lerp(transform.forward, direction, angularSpeed * Time.deltaTime);
             }
 
             // public methods
