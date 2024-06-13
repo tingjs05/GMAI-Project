@@ -22,6 +22,14 @@ public class SpiderAttackTask : SpiderTask
     [Task]
     public void ChaseTarget()
     {
+        // check for task completion
+        if (taskCompleted)
+        {
+            taskCompleted = false;
+            ThisTask.Fail();
+            return;
+        }
+
         // ensure player is within range
         if (!bot.PlayerNearby(bot.data.DetectionRange, out Transform player))
         {
@@ -35,32 +43,96 @@ public class SpiderAttackTask : SpiderTask
 
         // succeed task once reached player
         if (bot.agent.remainingDistance <= bot.agent.stoppingDistance)
+        {
+            // reset movement param
+            bot.anim.SetFloat("x", 0f);
+            // mark task as successful
             ThisTask.Succeed();
+        }
     }
 
     // strong attack
     [Task]
     public bool CanStrongAttack()
     {
-        return false;
+        return bot.CanStrongAttack;
     }
+
+    float timeInAction = 0f;
 
     [Task]
     public void StrongAttack()
     {
-        ThisTask.Fail();
+        // check for task completion
+        if (taskCompleted)
+        {
+            taskCompleted = false;
+            ThisTask.Succeed();
+            return;
+        }
+
+        // increment time in action
+        timeInAction += Time.deltaTime;
+        // get animation normalized time
+        float normalizedTime = timeInAction / bot.data.StrongAttackDuration;
+
+        // check parry
+        if (normalizedTime >= bot.data.NormalizedStartParryWindow && 
+            normalizedTime <= (bot.data.NormalizedStartParryWindow + bot.data.NormalizedParryWindow))
+        {
+            // subscribe to damaged event
+            bot.Damaged += Parried;
+            // show parry indicator
+            bot.parryIndicator.SetActive(true);
+        }
+        // stop parry window
+        else
+        {
+            // unsubscribe from damaged event
+            bot.Damaged -= Parried;
+            // hide parry indicator
+            bot.parryIndicator.SetActive(false);
+            // activate hitbox
+            bot.hitbox.SetActive(true);
+        }
+
+        // count attack duration
+        if (bot.CounterRunning()) return;
+        // trigger animation
+        bot.anim.SetTrigger("StrongAttack");
+        // disallow strong attack
+        bot.CanStrongAttack = false;
+        // reset time in action
+        timeInAction = 0f;
+        // start coroutine to count duration in state
+        bot.CountDuration(bot.data.StrongAttackDuration, () => 
+            {
+                taskCompleted = true;
+                timeInAction = 0f;
+                // deactivate hitbox
+                bot.hitbox.SetActive(false);
+            });
     }
 
     // normal attack
     [Task]
-    public void Attack1()
+    public void Attack(int combo)
     {
         ThisTask.Fail();
     }
 
-    [Task]
-    public void Attack2()
+    // parry event listener
+    void Parried(float damage)
     {
-        ThisTask.Fail();
+        // unsubscribe from event
+        bot.Damaged -= Parried;
+        // set stun to true
+        bot.SetStun(true);
+        // hide parry indicator
+        bot.parryIndicator.SetActive(false);
+        // deactivate hitbox
+        bot.hitbox.SetActive(false);
+        // interrupt task
+        taskCompleted = true;
     }
 }

@@ -21,10 +21,18 @@ public class SpiderPrioritiesTasks : SpiderTask
     [Task]
     public void Die()
     {
-        // destroy game object after death animation
-        if (bot.anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 1) return;
-        Destroy(gameObject);
-        ThisTask.Succeed();
+        if (taskCompleted)
+        {
+            taskCompleted = false;
+            // destroy game object after death animation
+            Destroy(gameObject);
+            // mark task as successful
+            ThisTask.Succeed();
+            return;
+        }
+        // count duration for death animation
+        if (bot.CounterRunning()) return;
+        bot.CountDuration(bot.data.DeathDuration, () => taskCompleted = true);
     }
 
     // stun tree
@@ -40,17 +48,23 @@ public class SpiderPrioritiesTasks : SpiderTask
         // complete task once counter is over
         if (taskCompleted)
         {
+            Debug.Log("ended");
+            // set task as complete
             taskCompleted = false;
+            bot.SetStun(false);
             ThisTask.Succeed();
+            // unflip spider
+            transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
+            transform.rotation = Quaternion.Euler(0f, transform.rotation.y, 0f);
             return;
         }
 
         // only start coroutine counter if not already running
         if (!bot.CounterRunning()) return;
-        bot.CountDuration(bot.data.StunDuration, () => 
-            {
-                bot.SetStun(false);
-                taskCompleted = true;
-            });
+        // start coroutine
+        bot.CountDuration(bot.data.StunDuration, () => taskCompleted = true);
+        // flip spider
+        transform.position = new Vector3(transform.position.x, 2f, transform.position.z);
+        transform.rotation = Quaternion.Euler(transform.forward.x * 180f, transform.rotation.y, transform.forward.z * 180f);
     }
 }

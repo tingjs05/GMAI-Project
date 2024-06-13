@@ -20,8 +20,8 @@ tree("Attack")
         //         CanStrongAttack
         //         StrongAttack
         //     sequence
-        //         Attack1
-        //         Attack2
+        //         Attack(1)
+        //         Attack(2)
 
 tree("Patrol")
     Patrol
