@@ -42,9 +42,6 @@ public class SpiderPrioritiesTasks : SpiderTask
             taskCompleted = false;
             bot.SetStun(false);
             ThisTask.Succeed();
-            // unflip spider
-            // transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
-            // transform.rotation = Quaternion.Euler(0f, transform.rotation.y, 0f);
             return;
         }
 
@@ -52,8 +49,7 @@ public class SpiderPrioritiesTasks : SpiderTask
         if (bot.CounterRunning()) return;
         // start coroutine
         bot.CountDuration(bot.data.StunDuration, () => taskCompleted = true);
-        // flip spider
-        // transform.position = new Vector3(transform.position.x, 2f, transform.position.z);
-        // transform.rotation = Quaternion.Euler(transform.forward.x * 180f, transform.rotation.y, transform.forward.z * 180f);
+        // knock self back
+        GetComponent<Rigidbody>()?.AddForce(-transform.forward * bot.data.ParryKnockbackForce, ForceMode.Impulse);
     }
 }

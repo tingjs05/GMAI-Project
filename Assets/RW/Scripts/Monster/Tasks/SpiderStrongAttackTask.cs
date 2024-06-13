@@ -89,5 +89,7 @@ public class SpiderStrongAttackTask : SpiderTask
         taskCompleted = true;
         // stun self
         bot.SetStun(true);
+        // override current animation and play idle
+        bot.anim.Play("Idle");
     }
 }

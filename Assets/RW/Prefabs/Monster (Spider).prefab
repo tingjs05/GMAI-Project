@@ -190,6 +190,7 @@ MonoBehaviour:
   deathDuration: 2
   normalizedStartParryWindow: 0.05
   normalizedParryWindow: 0.25
+  parryKnockbackForce: 15
   playerMask:
     serializedVersion: 2
     m_Bits: 8192
