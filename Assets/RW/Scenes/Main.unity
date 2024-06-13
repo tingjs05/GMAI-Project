@@ -3504,6 +3504,7 @@ MonoBehaviour:
   meleeSheath: {fileID: 8300000, guid: 89f77264bbaf94b43846e0cc32aa4d69, type: 3}
   click: {fileID: 8300000, guid: b5384697766786f488ff4e3d30e140b4, type: 3}
   select: {fileID: 8300000, guid: f60469948b2464243abccabd2da59dc7, type: 3}
+  shieldBreak: {fileID: 8300000, guid: d15443dbe860d9c488292db239cfc3e8, type: 3}
   audioSource: {fileID: 1161090119}
   footStepsAudio: {fileID: 1049882302}
   minPitch: 0.75

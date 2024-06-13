@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Panda;
+using RayWenderlich.Unity.StatePatternInUnity;
 
 public class SpiderPrioritiesTasks : SpiderTask
 {
@@ -38,9 +39,10 @@ public class SpiderPrioritiesTasks : SpiderTask
         // complete task once counter is over
         if (taskCompleted)
         {
+            // reset stun to false
+            bot.SetStun(false);
             // set task as complete
             taskCompleted = false;
-            bot.SetStun(false);
             ThisTask.Succeed();
             return;
         }
@@ -51,5 +53,7 @@ public class SpiderPrioritiesTasks : SpiderTask
         bot.CountDuration(bot.data.StunDuration, () => taskCompleted = true);
         // knock self back
         GetComponent<Rigidbody>()?.AddForce(-transform.forward * bot.data.ParryKnockbackForce, ForceMode.Impulse);
+        // play stun sound effect
+        SoundManager.Instance?.PlaySound(SoundManager.Instance.shieldBreak);
     }
 }
