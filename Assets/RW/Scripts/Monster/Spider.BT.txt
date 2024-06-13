@@ -17,9 +17,9 @@ tree("Attack")
             TargetWithinRange
             ChaseTarget
         fallback
-            // sequence
-            //     CanStrongAttack
-            //     StrongAttack
+            sequence
+                CanStrongAttack
+                StrongAttack
             sequence
                 Attack(0)
                 Wait(0.01)

@@ -46,65 +46,6 @@ public class SpiderAttackTask : SpiderTask
             ThisTask.Succeed();
     }
 
-    // strong attack
-    float timeInAction = 0f;
-
-    [Task]
-    public bool CanStrongAttack()
-    {
-        // reset time in action
-        timeInAction = 0f;
-        return bot.CanStrongAttack;
-    }
-
-    [Task]
-    public void StrongAttack()
-    {
-        // check for task completion
-        if (taskCompleted || timeInAction >= bot.data.StrongAttackDuration)
-        {
-            taskCompleted = false;
-            timeInAction = 0f;
-            // deactivate hitbox
-            bot.hitbox.SetActive(false);
-            // mark task as successful
-            ThisTask.Succeed();
-            return;
-        }
-
-        // increment time in action
-        timeInAction += Time.deltaTime;
-        // get animation normalized time
-        float normalizedTime = timeInAction / bot.data.StrongAttackDuration;
-
-        // check parry
-        if (normalizedTime >= bot.data.NormalizedStartParryWindow && 
-            normalizedTime <= (bot.data.NormalizedStartParryWindow + bot.data.NormalizedParryWindow))
-        {
-            // subscribe to damaged event
-            bot.Damaged += Parried;
-            // show parry indicator
-            bot.parryIndicator.SetActive(true);
-        }
-        // stop parry window
-        else
-        {
-            // unsubscribe from damaged event
-            bot.Damaged -= Parried;
-            // hide parry indicator
-            bot.parryIndicator.SetActive(false);
-            // activate hitbox
-            bot.hitbox.SetActive(true);
-        }
-
-        // count attack duration
-        if (timeInAction > 0f) return;
-        // trigger animation
-        bot.anim.SetTrigger("StrongAttack");
-        // disallow strong attack
-        bot.CanStrongAttack = false;
-    }
-
     // normal attack
     [Task]
     public void Attack(int combo)
@@ -133,20 +74,5 @@ public class SpiderAttackTask : SpiderTask
                 // deactivate hitbox
                 bot.hitbox.SetActive(false);
             });
-    }
-
-    // parry event listener
-    void Parried(float damage)
-    {
-        // unsubscribe from event
-        bot.Damaged -= Parried;
-        // set stun to true
-        bot.SetStun(true);
-        // hide parry indicator
-        bot.parryIndicator.SetActive(false);
-        // deactivate hitbox
-        bot.hitbox.SetActive(false);
-        // interrupt task
-        taskCompleted = true;
     }
 }
