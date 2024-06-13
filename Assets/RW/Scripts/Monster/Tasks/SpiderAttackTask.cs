@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Panda;
-using Astar.Pathfinding;
+using RayWenderlich.Unity.StatePatternInUnity;
 
 public class SpiderAttackTask : SpiderTask
 {
@@ -43,25 +43,12 @@ public class SpiderAttackTask : SpiderTask
 
         // succeed task once reached player
         if (bot.agent.remainingDistance <= bot.agent.stoppingDistance)
-        {
-            // reset movement param
-            bot.anim.SetFloat("x", 0f);
-            // mark task as successful
             ThisTask.Succeed();
-        }
     }
 
-    // strong attack
+    // normal attack
     [Task]
-    public bool CanStrongAttack()
-    {
-        return bot.CanStrongAttack;
-    }
-
-    float timeInAction = 0f;
-
-    [Task]
-    public void StrongAttack()
+    public void Attack(int combo)
     {
         // check for task completion
         if (taskCompleted)
@@ -71,68 +58,23 @@ public class SpiderAttackTask : SpiderTask
             return;
         }
 
-        // increment time in action
-        timeInAction += Time.deltaTime;
-        // get animation normalized time
-        float normalizedTime = timeInAction / bot.data.StrongAttackDuration;
-
-        // check parry
-        if (normalizedTime >= bot.data.NormalizedStartParryWindow && 
-            normalizedTime <= (bot.data.NormalizedStartParryWindow + bot.data.NormalizedParryWindow))
-        {
-            // subscribe to damaged event
-            bot.Damaged += Parried;
-            // show parry indicator
-            bot.parryIndicator.SetActive(true);
-        }
-        // stop parry window
-        else
-        {
-            // unsubscribe from damaged event
-            bot.Damaged -= Parried;
-            // hide parry indicator
-            bot.parryIndicator.SetActive(false);
-            // activate hitbox
-            bot.hitbox.SetActive(true);
-        }
-
         // count attack duration
         if (bot.CounterRunning()) return;
+        // reset movement param
+        bot.anim.SetFloat("x", 0f);
         // trigger animation
-        bot.anim.SetTrigger("StrongAttack");
-        // disallow strong attack
-        bot.CanStrongAttack = false;
-        // reset time in action
-        timeInAction = 0f;
+        bot.anim.SetTrigger("Attack");
+        // set hitbox damage
+        bot.hitbox.GetComponent<HitBox>()?.SetDamage(bot.data.Damage); 
+        // activate hitbox
+        bot.hitbox.SetActive(true);
         // start coroutine to count duration in state
-        bot.CountDuration(bot.data.StrongAttackDuration, () => 
+        // make first hit shorter, and second hit longer
+        bot.CountDuration(bot.data.AttackDuration * (combo == 0 ? 0.75f : 1f), () => 
             {
                 taskCompleted = true;
-                timeInAction = 0f;
                 // deactivate hitbox
                 bot.hitbox.SetActive(false);
             });
-    }
-
-    // normal attack
-    [Task]
-    public void Attack(int combo)
-    {
-        ThisTask.Fail();
-    }
-
-    // parry event listener
-    void Parried(float damage)
-    {
-        // unsubscribe from event
-        bot.Damaged -= Parried;
-        // set stun to true
-        bot.SetStun(true);
-        // hide parry indicator
-        bot.parryIndicator.SetActive(false);
-        // deactivate hitbox
-        bot.hitbox.SetActive(false);
-        // interrupt task
-        taskCompleted = true;
     }
 }

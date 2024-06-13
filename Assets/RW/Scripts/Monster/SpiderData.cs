@@ -29,6 +29,7 @@ public class SpiderData : MonoBehaviour
     [Header("Parry")]
     [SerializeField, Range(0f, 1f)] float normalizedStartParryWindow = 0.3f;
     [SerializeField, Range(0f, 1f)] float normalizedParryWindow = 0.25f;
+    [SerializeField] float parryKnockbackForce = 10f;
 
 
     [Header("Others")]
@@ -62,6 +63,7 @@ public class SpiderData : MonoBehaviour
     // parry
     public float NormalizedStartParryWindow => normalizedStartParryWindow;
     public float NormalizedParryWindow => normalizedParryWindow;
+    public float ParryKnockbackForce => parryKnockbackForce;
 
     // others
     public LayerMask PlayerMask => playerMask;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Panda;
+using RayWenderlich.Unity.StatePatternInUnity;
 
 public class SpiderPrioritiesTasks : SpiderTask
 {
@@ -9,30 +10,20 @@ public class SpiderPrioritiesTasks : SpiderTask
     [Task]
     public bool CheckDeath()
     {
-        if (bot.Died)
-        {
-            // set death animation
-            bot.anim.SetTrigger("Die");
-            return true;
-        }
-        return false;
+        return bot.Died;
     }
 
     [Task]
     public void Die()
     {
-        if (taskCompleted)
-        {
-            taskCompleted = false;
-            // destroy game object after death animation
-            Destroy(gameObject);
-            // mark task as successful
-            ThisTask.Succeed();
-            return;
-        }
         // count duration for death animation
         if (bot.CounterRunning()) return;
-        bot.CountDuration(bot.data.DeathDuration, () => taskCompleted = true);
+        // start coroutine to count animation duration
+        // destroy game object after death animation
+        bot.CountDuration(bot.data.DeathDuration, () => Destroy(gameObject));
+        // set death animation
+        bot.anim.SetFloat("x", 0f);
+        bot.anim.SetTrigger("Die");
     }
 
     // stun tree
@@ -48,23 +39,21 @@ public class SpiderPrioritiesTasks : SpiderTask
         // complete task once counter is over
         if (taskCompleted)
         {
-            Debug.Log("ended");
+            // reset stun to false
+            bot.SetStun(false);
             // set task as complete
             taskCompleted = false;
-            bot.SetStun(false);
             ThisTask.Succeed();
-            // unflip spider
-            transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
-            transform.rotation = Quaternion.Euler(0f, transform.rotation.y, 0f);
             return;
         }
 
         // only start coroutine counter if not already running
-        if (!bot.CounterRunning()) return;
+        if (bot.CounterRunning()) return;
         // start coroutine
         bot.CountDuration(bot.data.StunDuration, () => taskCompleted = true);
-        // flip spider
-        transform.position = new Vector3(transform.position.x, 2f, transform.position.z);
-        transform.rotation = Quaternion.Euler(transform.forward.x * 180f, transform.rotation.y, transform.forward.z * 180f);
+        // knock self back
+        GetComponent<Rigidbody>()?.AddForce(-transform.forward * bot.data.ParryKnockbackForce, ForceMode.Impulse);
+        // play stun sound effect
+        SoundManager.Instance?.PlaySound(SoundManager.Instance.shieldBreak);
     }
 }

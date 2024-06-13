@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4277783686040399987}
   - component: {fileID: 3983982775525404736}
   - component: {fileID: 1829609059944054651}
+  - component: {fileID: 657103329789719046}
   - component: {fileID: 8639546208635145804}
   - component: {fileID: 330979793811293115}
   - component: {fileID: 3057663741922467626}
@@ -68,7 +69,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 1
 --- !u!136 &934216028794411486
 CapsuleCollider:
@@ -139,6 +140,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76a2c7ccb8a9acc4b913fd63676d5af8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &657103329789719046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530084261870707524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a063e13250b8b45a00a8d468dea25d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8639546208635145804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,19 +177,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 15
-  walkSpeed: 12
-  runSpeed: 15
+  walkSpeed: 15
+  runSpeed: 17
   damage: 5
   strongDamage: 15
   patrolRange: 10
   detectionRange: 6
   stunDuration: 3
-  strongAttackResetRate: {x: 3, y: 5}
+  strongAttackResetRate: {x: 5, y: 7}
   strongAttackDuration: 1.5
   attackDuration: 1.5
   deathDuration: 2
-  normalizedStartParryWindow: 0.3
+  normalizedStartParryWindow: 0.05
   normalizedParryWindow: 0.25
+  parryKnockbackForce: 15
   playerMask:
     serializedVersion: 2
     m_Bits: 8192
@@ -205,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57d395f4d3547144b82d8e197339c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
+  speed: 15
   angularSpeed: 5
   stoppingDistance: 3
   updateRotation: 1
@@ -314,6 +328,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3134124405878954745}
   - component: {fileID: 9108507889813476277}
+  - component: {fileID: 6929668481212683056}
   m_Layer: 0
   m_Name: Hitbox
   m_TagString: Untagged
@@ -355,8 +370,21 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4, y: 2, z: 2.5}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 4, y: 2, z: 6}
+  m_Center: {x: 0, y: 0, z: 2}
+--- !u!114 &6929668481212683056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8595107376739159143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb64790731f0cae4ca471b5df33675f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
 --- !u!1001 &8230002622747117568
 PrefabInstance:
   m_ObjectHideFlags: 0
