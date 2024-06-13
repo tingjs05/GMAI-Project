@@ -9,30 +9,20 @@ public class SpiderPrioritiesTasks : SpiderTask
     [Task]
     public bool CheckDeath()
     {
-        if (bot.Died)
-        {
-            // set death animation
-            bot.anim.SetTrigger("Die");
-            return true;
-        }
-        return false;
+        return bot.Died;
     }
 
     [Task]
     public void Die()
     {
-        if (taskCompleted)
-        {
-            taskCompleted = false;
-            // destroy game object after death animation
-            Destroy(gameObject);
-            // mark task as successful
-            ThisTask.Succeed();
-            return;
-        }
         // count duration for death animation
         if (bot.CounterRunning()) return;
-        bot.CountDuration(bot.data.DeathDuration, () => taskCompleted = true);
+        // start coroutine to count animation duration
+        // destroy game object after death animation
+        bot.CountDuration(bot.data.DeathDuration, () => Destroy(gameObject));
+        // set death animation
+        bot.anim.SetFloat("x", 0f);
+        bot.anim.SetTrigger("Die");
     }
 
     // stun tree
