@@ -15,6 +15,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Enter()
         {
             base.Enter();
+            // set dodge direction
+            SetDodgeDirection();
             // cache current health
             startHealth = character.Health;
             // reset coroutine
@@ -47,6 +49,27 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             base.Exit();
             // reset time scale
             Time.timeScale = 1f;
+        }
+
+        void SetDodgeDirection()
+        {
+            // get player input
+            Vector3 input = new Vector3(Input.GetAxis("Vertical"), 0f, Input.GetAxis("Horizontal"));
+            if (input == Vector3.zero) return;
+
+            // reset roll direction vector to player forward vector
+            Vector3 rollDir = character.transform.forward;
+
+            // rotate player forward vector depending on input
+            if (input.x != 0f)
+                rollDir *= input.x < 0? -1 : 1;
+            if (input.z > 0f)
+                rollDir = new Vector3(rollDir.z, 0f, -rollDir.x);
+            if (input.z < 0f)
+                rollDir = new Vector3(-rollDir.z, 0f, rollDir.x);
+            
+            // set final roll direction
+            character.transform.forward = rollDir;
         }
 
         void HandleDodge()
