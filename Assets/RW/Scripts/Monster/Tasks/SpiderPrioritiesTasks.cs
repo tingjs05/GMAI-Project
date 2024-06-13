@@ -48,7 +48,6 @@ public class SpiderPrioritiesTasks : SpiderTask
         // complete task once counter is over
         if (taskCompleted)
         {
-            Debug.Log("ended");
             // set task as complete
             taskCompleted = false;
             bot.SetStun(false);
@@ -60,7 +59,7 @@ public class SpiderPrioritiesTasks : SpiderTask
         }
 
         // only start coroutine counter if not already running
-        if (!bot.CounterRunning()) return;
+        if (bot.CounterRunning()) return;
         // start coroutine
         bot.CountDuration(bot.data.StunDuration, () => taskCompleted = true);
         // flip spider
