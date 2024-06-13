@@ -13,10 +13,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Enter()
         {
             base.Enter();
-            // play sound
-            // SoundManager.Instance.PlaySound(SoundManager.Instance.);
-            // activate hitbox
-            character.ActivateHitBox();
             // trigger animation
             character.TriggerAnimation(character.rollParam);
             // display state on UI 
@@ -34,18 +30,14 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
-            // move player forward
-            targetVelocity = character.RollSpeed * character.transform.forward * Time.deltaTime;
-            targetVelocity.y = character.rb.velocity.y;
-            character.rb.velocity = targetVelocity;
+            // move player forward, do not play animation
+            character.Move(character.RollSpeed, 0, false);
         }
-
 
         public override void Exit()
         {
             base.Exit();
-            // deactivate hitbox
-            character.DeactivateHitBox();
+            SoundManager.Instance.StopPlaying();
         }
     }
 }

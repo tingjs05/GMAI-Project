@@ -142,7 +142,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             TriggerAnimation(hitParam);
         }
 
-        public void Move(float speed, float rotationSpeed)
+        public void Move(float speed, float rotationSpeed, bool playAnim = true)
         {
             Vector3 targetVelocity = speed * transform.forward * Time.deltaTime;
             targetVelocity.y = rb.velocity.y;
@@ -155,6 +155,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
                 SoundManager.Instance.PlayFootSteps(Mathf.Abs(speed));
             }
 
+            // check if need to play animation before playing walking/running animation
+            if (!playAnim) return;
             anim.SetFloat(horizonalMoveParam, rb.angularVelocity.y);
             anim.SetFloat(verticalMoveParam, speed * Time.deltaTime);
         }
