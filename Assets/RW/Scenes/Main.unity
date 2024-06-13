@@ -3271,7 +3271,7 @@ GameObject:
   - component: {fileID: 1161090117}
   - component: {fileID: 1161090116}
   - component: {fileID: 1161090115}
-  - component: {fileID: 1161090118}
+  - component: {fileID: 1161090122}
   - component: {fileID: 1161090120}
   - component: {fileID: 1161090119}
   - component: {fileID: 1161090121}
@@ -3357,21 +3357,6 @@ Transform:
   - {fileID: 1049882301}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1161090118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1161090114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d51810c7a684d16459e06aa54504dd4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 122379875}
-  smoothTime: 4
-  offset: {x: 3, y: 0, z: 3}
 --- !u!82 &1161090119
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3572,6 +3557,27 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &1161090122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161090114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4332ffa7233d63449b74de1043da216f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mPlayer: {fileID: 1252697823}
+  mPositionOffset: {x: 0, y: 2.5, z: -5}
+  mAngleOffset: {x: 10, y: 0, z: 0}
+  mDamping: 2
+  mMinPitch: -30
+  mMaxPitch: 30
+  mRotationSpeed: 55
+  mTouchField: {fileID: 0}
+  mCameraType: 2
 --- !u!1001 &1171806214
 PrefabInstance:
   m_ObjectHideFlags: 0
