@@ -3494,6 +3494,7 @@ MonoBehaviour:
   click: {fileID: 8300000, guid: b5384697766786f488ff4e3d30e140b4, type: 3}
   select: {fileID: 8300000, guid: f60469948b2464243abccabd2da59dc7, type: 3}
   shieldBreak: {fileID: 8300000, guid: d15443dbe860d9c488292db239cfc3e8, type: 3}
+  dodge: {fileID: 8300000, guid: 5cfa46c194552c442a67df0929a7af70, type: 3}
   audioSource: {fileID: 1161090119}
   footStepsAudio: {fileID: 1049882302}
   minPitch: 0.75

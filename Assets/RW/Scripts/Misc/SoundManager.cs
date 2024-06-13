@@ -48,6 +48,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public AudioClip click;
         public AudioClip select;
         public AudioClip shieldBreak;
+        public AudioClip dodge;
 
         public static SoundManager Instance;
 
