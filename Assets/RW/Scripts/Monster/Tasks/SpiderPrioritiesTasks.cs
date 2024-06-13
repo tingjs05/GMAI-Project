@@ -48,13 +48,14 @@ public class SpiderPrioritiesTasks : SpiderTask
         // complete task once counter is over
         if (taskCompleted)
         {
+            Debug.Log("ended");
             // set task as complete
             taskCompleted = false;
             bot.SetStun(false);
             ThisTask.Succeed();
             // unflip spider
             transform.position = new Vector3(transform.position.x, 0f, transform.position.z);
-            transform.localRotation = Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 0f);
+            transform.rotation = Quaternion.Euler(0f, transform.rotation.y, 0f);
             return;
         }
 
@@ -64,6 +65,6 @@ public class SpiderPrioritiesTasks : SpiderTask
         bot.CountDuration(bot.data.StunDuration, () => taskCompleted = true);
         // flip spider
         transform.position = new Vector3(transform.position.x, 2f, transform.position.z);
-        transform.localRotation = Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 180f);
+        transform.rotation = Quaternion.Euler(transform.forward.x * 180f, transform.rotation.y, transform.forward.z * 180f);
     }
 }

@@ -43,7 +43,12 @@ public class SpiderAttackTask : SpiderTask
 
         // succeed task once reached player
         if (bot.agent.remainingDistance <= bot.agent.stoppingDistance)
+        {
+            // reset movement param
+            bot.anim.SetFloat("x", 0f);
+            // mark task as successful
             ThisTask.Succeed();
+        }
     }
 
     // strong attack
@@ -93,8 +98,6 @@ public class SpiderAttackTask : SpiderTask
 
         // count attack duration
         if (bot.CounterRunning()) return;
-        // reset movement param
-        bot.anim.SetFloat("x", 0f);
         // trigger animation
         bot.anim.SetTrigger("StrongAttack");
         // disallow strong attack

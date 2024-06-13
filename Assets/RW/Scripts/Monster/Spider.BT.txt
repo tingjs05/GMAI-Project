@@ -15,13 +15,13 @@ tree("Attack")
     sequence
         while TargetWithinRange
             ChaseTarget
-        fallback
-            sequence
-                CanStrongAttack
-                StrongAttack
-            // sequence
-            //     Attack(1)
-            //     Attack(2)
+        // fallback
+        //     sequence
+        //         CanStrongAttack
+        //         StrongAttack
+        //     sequence
+        //         Attack(1)
+        //         Attack(2)
 
 tree("Patrol")
     Patrol
