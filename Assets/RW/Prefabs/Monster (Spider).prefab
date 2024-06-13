@@ -164,8 +164,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 15
-  walkSpeed: 12
-  runSpeed: 15
+  walkSpeed: 15
+  runSpeed: 20
   damage: 5
   strongDamage: 15
   patrolRange: 10
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57d395f4d3547144b82d8e197339c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
+  speed: 15
   angularSpeed: 5
   stoppingDistance: 3
   updateRotation: 1
