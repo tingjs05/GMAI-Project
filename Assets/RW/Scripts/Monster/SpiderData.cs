@@ -63,6 +63,7 @@ public class SpiderData : MonoBehaviour
     // parry
     public float NormalizedStartParryWindow => normalizedStartParryWindow;
     public float NormalizedParryWindow => normalizedParryWindow;
+    public float NormalizedAttackWindow => normalizedParryWindow + normalizedParryWindow;
     public float ParryKnockbackForce => parryKnockbackForce;
 
     // others

@@ -71,12 +71,12 @@ public class SpiderStrongAttackTask : SpiderTask
     {
         // check if within parry window
         bool parryActive = normalizedTimeInAction >= bot.data.NormalizedStartParryWindow &&
-            normalizedTimeInAction <= (bot.data.NormalizedStartParryWindow + bot.data.NormalizedParryWindow);
+            normalizedTimeInAction <= bot.data.NormalizedAttackWindow;
         
         // toggle parry indicator
         bot.parryIndicator.SetActive(parryActive);
         // toggle hitbox, only activate after parry window
-        bot.hitbox.SetActive(normalizedTimeInAction >= (bot.data.NormalizedStartParryWindow + bot.data.NormalizedParryWindow));
+        bot.hitbox.SetActive(normalizedTimeInAction >= bot.data.NormalizedAttackWindow);
 
         // subscribe to damaged event if parry is active
         if (parryActive)

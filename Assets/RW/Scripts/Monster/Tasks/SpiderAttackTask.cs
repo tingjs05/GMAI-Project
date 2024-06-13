@@ -6,6 +6,8 @@ using RayWenderlich.Unity.StatePatternInUnity;
 
 public class SpiderAttackTask : SpiderTask
 {
+    float timeInAction = 0f;
+
     // check and chase target
     [Task]
     public bool TargetWithinRange()
@@ -58,6 +60,8 @@ public class SpiderAttackTask : SpiderTask
             return;
         }
 
+        // check when to activate hitbox
+        CheckHitbox();
         // count attack duration
         if (bot.CounterRunning()) return;
         // reset movement param
@@ -66,8 +70,6 @@ public class SpiderAttackTask : SpiderTask
         bot.anim.SetTrigger("Attack");
         // set hitbox damage
         bot.hitbox.GetComponent<HitBox>()?.SetDamage(bot.data.Damage); 
-        // activate hitbox
-        bot.hitbox.SetActive(true);
         // start coroutine to count duration in state
         // make first hit shorter, and second hit longer
         bot.CountDuration(bot.data.AttackDuration * (combo == 0 ? 0.75f : 1f), () => 
@@ -75,6 +77,19 @@ public class SpiderAttackTask : SpiderTask
                 taskCompleted = true;
                 // deactivate hitbox
                 bot.hitbox.SetActive(false);
+                // reset time in action
+                timeInAction = 0f;
             });
+    }
+
+    void CheckHitbox()
+    {
+        // check if hitbox is already active
+        if (bot.hitbox.activeSelf) return;
+        // increment time in action
+        timeInAction += Time.deltaTime;
+        // check if need to activate hitbox
+        if ((timeInAction / bot.data.AttackDuration) >= bot.data.NormalizedAttackWindow)
+            bot.hitbox.SetActive(true);
     }
 }
