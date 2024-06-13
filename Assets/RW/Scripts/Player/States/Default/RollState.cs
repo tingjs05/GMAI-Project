@@ -55,9 +55,11 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             SoundManager.Instance.PlaySound(SoundManager.Instance.dodge);
             // revert damage done
             character.Damage(character.Health - startHealth);
+            // cancel hit animation trigger
+            character.ResetTrigger(character.hitParam);
             // temporarily slow down time
             if (coroutine != null) character.StopCoroutine(coroutine);
-            coroutine = character.StartCoroutine(SlowDownTime(0.5f));
+            coroutine = character.StartCoroutine(SlowDownTime(1f));
         }
 
         IEnumerator SlowDownTime(float duration)

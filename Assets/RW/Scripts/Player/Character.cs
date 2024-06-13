@@ -69,7 +69,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         private int verticalMoveParam = Animator.StringToHash("V_Speed");
         private int shootParam = Animator.StringToHash("Shoot");
         private int hardLanding = Animator.StringToHash("HardLand");
-        private int hitParam = Animator.StringToHash("Hit");
         #endregion
 
         #region Properties
@@ -95,6 +94,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public int isMelee => Animator.StringToHash("IsMelee");
         public int crouchParam => Animator.StringToHash("Crouch");
         public int rollParam => Animator.StringToHash("Roll");
+        public int hitParam => Animator.StringToHash("Hit");
 
         public Rigidbody rb { get; private set; }
         public bool isSheathed { get; private set; } = true;
@@ -181,6 +181,11 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public void TriggerAnimation(int param)
         {
             anim.SetTrigger(param);
+        }
+
+        public void ResetTrigger(int param)
+        {
+            anim.ResetTrigger(param);
         }
 
         public AnimatorStateInfo GetAnimationState(int layer)
