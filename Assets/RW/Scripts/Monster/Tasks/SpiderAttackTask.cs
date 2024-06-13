@@ -127,7 +127,7 @@ public class SpiderAttackTask : SpiderTask
         bot.hitbox.SetActive(true);
         // start coroutine to count duration in state
         // make first hit shorter, and second hit longer
-        bot.CountDuration(bot.data.AttackDuration * (combo == 0 ? 0.75f : 1.2f), () => 
+        bot.CountDuration(bot.data.AttackDuration * (combo == 0 ? 0.75f : 1f), () => 
             {
                 taskCompleted = true;
                 // deactivate hitbox

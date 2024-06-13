@@ -22,7 +22,9 @@ tree("Attack")
             //     StrongAttack
             sequence
                 Attack(0)
+                Wait(0.01)
                 Attack(1)
+                Wait(0.5)
 
 tree("Patrol")
     Patrol
