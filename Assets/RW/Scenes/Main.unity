@@ -6511,15 +6511,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2056308994710754151, guid: bb6e0dcf07dc43e498694da3d254a063,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 80
-      objectReference: {fileID: 0}
     - target: {fileID: 2364347028372832033, guid: bb6e0dcf07dc43e498694da3d254a063,
         type: 3}
       propertyPath: angularSpeed
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
