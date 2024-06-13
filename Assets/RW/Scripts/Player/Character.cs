@@ -30,6 +30,7 @@
 
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace RayWenderlich.Unity.StatePatternInUnity
 {
@@ -45,6 +46,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         private Transform sheathTransform;
         [SerializeField]
         private Transform shootTransform;
+        [SerializeField]
+        private Slider healthBar;
         [SerializeField]
         private CharacterData data;
         [SerializeField]
@@ -138,7 +141,12 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         #region Methods
         public void Damage(float damage)
         {
+            // apply damage to health
             Health -= damage;
+            // update healthbar
+            healthBar.value = Health;
+            healthBar.gameObject.SetActive(Health < data.maxHealth);
+            // trigger hit animation
             TriggerAnimation(hitParam);
         }
 
@@ -275,6 +283,9 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             rb = GetComponent<Rigidbody>();
             // set health
             Health = data.maxHealth;
+            healthBar.maxValue = data.maxHealth;
+            healthBar.value = Health;
+            healthBar.gameObject.SetActive(false);
 
             // set up FSMs
             // default states
