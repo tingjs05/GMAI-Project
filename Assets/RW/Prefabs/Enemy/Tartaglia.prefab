@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 8291891859946424892}
   - component: {fileID: 4882594438858686935}
   - component: {fileID: 3690943818983299334}
+  - component: {fileID: 2857782051361135980}
   - component: {fileID: 572981632856205888}
+  - component: {fileID: 7299132303907042281}
   m_Layer: 0
   m_Name: Tartaglia
   m_TagString: Untagged
@@ -57,7 +59,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
@@ -85,6 +87,32 @@ CapsuleCollider:
   m_Height: 3.5
   m_Direction: 1
   m_Center: {x: 0, y: 1.7, z: 0.1}
+--- !u!114 &2857782051361135980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6796170421696075733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9befd5c701f2d62499ff65845cc1e940, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MaxHealth>k__BackingField: 150
+  <WalkSpeed>k__BackingField: 10
+  <Damage>k__BackingField: 10
+  <ComboDamage>k__BackingField: 20
+  <DetectionRange>k__BackingField: 20
+  <RangedAttackRange>k__BackingField: 15
+  <MeleeAttackRange>k__BackingField: 3
+  <Sword>k__BackingField: {fileID: 4547779973191740304, guid: 53d160be7b3c0fa4195115b622af1e6f,
+    type: 3}
+  <Bow>k__BackingField: {fileID: 7797974500562566801, guid: 6d3aa4d07d5fa8c48a246464fdc2621f,
+    type: 3}
+  <LeftEquip>k__BackingField: {fileID: 5647437809895610336}
+  <RightEquip>k__BackingField: {fileID: 997110646941777387}
+  showGizmos: 1
 --- !u!114 &572981632856205888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,10 +125,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c24601560600244187bd9c79b4b771c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sword: {fileID: 4547779973191740304, guid: 53d160be7b3c0fa4195115b622af1e6f, type: 3}
-  bow: {fileID: 7797974500562566801, guid: 6d3aa4d07d5fa8c48a246464fdc2621f, type: 3}
-  leftEquip: {fileID: 5647437809895610336}
-  rightEquip: {fileID: 997110646941777387}
+--- !u!114 &7299132303907042281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6796170421696075733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e57d395f4d3547144b82d8e197339c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 1
+  angularSpeed: 1
+  stoppingDistance: 1
+  updateRotation: 1
+  showGizmos: 1
 --- !u!1001 &1469262080695763491
 PrefabInstance:
   m_ObjectHideFlags: 0
