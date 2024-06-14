@@ -15,6 +15,14 @@ public class EnemyData : MonoBehaviour
     [field: SerializeField] public float RangedAttackRange { get; private set; } = 10f;
     [field: SerializeField] public float MeleeAttackRange { get; private set; } = 1.5f;
 
+    [field: Header("Cooldown")]
+    [field: SerializeField] public int ShotsInARow { get; private set; } = 3;
+    [field: SerializeField] public float ShotCooldown { get; private set; } = 0.5f;
+    [field: SerializeField] public Vector2 ShotGroupCooldown { get; private set; }
+
+    [field: Header("Animation Durations")]
+    [field: SerializeField] public float ShootAnimDuration { get; private set; } = 1.733f;
+
     [field: Header("Equipment")]
     [field: SerializeField] public GameObject Sword { get; private set; }
     [field: SerializeField] public GameObject Bow { get; private set; }

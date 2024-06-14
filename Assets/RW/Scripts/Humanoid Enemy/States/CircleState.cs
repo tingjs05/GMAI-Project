@@ -39,6 +39,13 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             //     return;
             // }
 
+            // check if can shoot player (in shoot cooldown)
+            if (character.shootCoroutine == null)
+            {
+                stateMachine.ChangeState(character.shoot);
+                return;
+            }
+
             // circle around the player at this distance
             character.agent.SetDestination(PerpendicularDirection(player));
         }

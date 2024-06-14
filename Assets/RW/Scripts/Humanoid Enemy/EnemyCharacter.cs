@@ -27,6 +27,16 @@ public class EnemyCharacter : MonoBehaviour
 
     #endregion
 
+    #region Duration Management
+    // manage shooting cooldown
+    public bool CanShoot { get; private set; } = true;
+    [HideInInspector] public int shotsFired = 0;
+    [HideInInspector] public Coroutine shootCoroutine;
+
+    // manage animation durations
+    Coroutine coroutine;
+    #endregion
+
     #region FSM
     // state machine
     StateMachine fsm;
@@ -34,6 +44,7 @@ public class EnemyCharacter : MonoBehaviour
     public IdleState idle { get; private set; }
     public AlertState alert { get; private set; }
     public CircleState circle { get; private set; }
+    public ShootState shoot { get; private set; }
     #endregion
 
     // private variables
@@ -48,6 +59,7 @@ public class EnemyCharacter : MonoBehaviour
         idle = new IdleState(this, fsm);
         alert = new AlertState(this, fsm);
         circle = new CircleState(this, fsm);
+        shoot = new ShootState(this, fsm);
     }
 
     // Start is called before the first frame update
@@ -57,6 +69,8 @@ public class EnemyCharacter : MonoBehaviour
         data = GetComponent<EnemyData>();
         agent = GetComponent<Agent>();
         anim = GetComponentInChildren<Animator>();
+        // create weapons
+        CreateWeapons();
         // initialize fsm
         fsm.Initialize(idle);
     }
@@ -127,6 +141,20 @@ public class EnemyCharacter : MonoBehaviour
         }
         player = null;
         return false;
+    }
+
+    // coroutines to count duration of an action
+    public void CountDuration(float duration, System.Action callback = null)
+    {
+        if (coroutine != null) StopCoroutine(coroutine);
+        coroutine = StartCoroutine(CountDurationCoroutine(duration, callback));
+    }
+
+    IEnumerator CountDurationCoroutine(float duration, System.Action callback = null)
+    {
+        yield return new WaitForSeconds(duration);
+        callback?.Invoke();
+        coroutine = null;
     }
     #endregion
 

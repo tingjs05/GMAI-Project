@@ -106,6 +106,9 @@ MonoBehaviour:
   <DetectionRange>k__BackingField: 20
   <RangedAttackRange>k__BackingField: 15
   <MeleeAttackRange>k__BackingField: 3
+  <ShotsInARow>k__BackingField: 3
+  <ShotCooldown>k__BackingField: 0.5
+  <ShotGroupCooldown>k__BackingField: {x: 3, y: 5}
   <Sword>k__BackingField: {fileID: 4547779973191740304, guid: 53d160be7b3c0fa4195115b622af1e6f,
     type: 3}
   <Bow>k__BackingField: {fileID: 7797974500562566801, guid: 6d3aa4d07d5fa8c48a246464fdc2621f,
@@ -129,6 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   height: 1.7
+  shotsFired: 0
 --- !u!114 &7299132303907042281
 MonoBehaviour:
   m_ObjectHideFlags: 0
