@@ -9,6 +9,7 @@ public class EnemyData : MonoBehaviour
     [field: SerializeField] public float WalkSpeed { get; private set; } = 10f;
     [field: SerializeField] public float Damage { get; private set; } = 10f;
     [field: SerializeField] public float ComboDamage { get; private set; } = 20f;
+    [field: SerializeField] public float ArrowDamage { get; private set; } = 5f;
 
     [field: Header("Ranges")]
     [field: SerializeField] public float DetectionRange { get; private set; } = 20f;
@@ -26,6 +27,7 @@ public class EnemyData : MonoBehaviour
     [field: Header("Equipment")]
     [field: SerializeField] public GameObject Sword { get; private set; }
     [field: SerializeField] public GameObject Bow { get; private set; }
+    [field: SerializeField] public GameObject Arrow { get; private set; }
     [field: SerializeField] public Transform LeftEquip { get; private set; }
     [field: SerializeField] public Transform RightEquip { get; private set; }
 

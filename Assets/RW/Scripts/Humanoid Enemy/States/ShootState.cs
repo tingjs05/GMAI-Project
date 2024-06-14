@@ -40,6 +40,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Exit()
         {
             base.Exit();
+            // create arrow
+            character.ShootArrow();
             // unequip weapons
             character.Unequip();
             // start counter for shot cooldown

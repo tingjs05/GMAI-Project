@@ -103,15 +103,19 @@ MonoBehaviour:
   <WalkSpeed>k__BackingField: 8
   <Damage>k__BackingField: 10
   <ComboDamage>k__BackingField: 20
+  <ArrowDamage>k__BackingField: 5
   <DetectionRange>k__BackingField: 20
   <RangedAttackRange>k__BackingField: 15
   <MeleeAttackRange>k__BackingField: 3
   <ShotsInARow>k__BackingField: 3
   <ShotCooldown>k__BackingField: 0.5
   <ShotGroupCooldown>k__BackingField: {x: 3, y: 5}
+  <ShootAnimDuration>k__BackingField: 1.733
   <Sword>k__BackingField: {fileID: 4547779973191740304, guid: 53d160be7b3c0fa4195115b622af1e6f,
     type: 3}
   <Bow>k__BackingField: {fileID: 7797974500562566801, guid: 6d3aa4d07d5fa8c48a246464fdc2621f,
+    type: 3}
+  <Arrow>k__BackingField: {fileID: 2765187573379590635, guid: b05cee7468f21c944bef59c59b2116ed,
     type: 3}
   <LeftEquip>k__BackingField: {fileID: 5647437809895610336}
   <RightEquip>k__BackingField: {fileID: 997110646941777387}

@@ -125,6 +125,18 @@ public class EnemyCharacter : MonoBehaviour
                 break;
         }
     }
+
+    public void ShootArrow()
+    {
+        // create arrow object
+        GameObject arrow = Instantiate(
+                data.Arrow, 
+                position + (transform.forward * 2.5f), 
+                Quaternion.Euler(transform.rotation.y, transform.rotation.x, transform.rotation.z)
+            );
+        // set arrow damage
+        arrow.GetComponent<HitBox>()?.SetDamage(data.ArrowDamage);
+    }
     #endregion
 
     #region Other Public Methods
