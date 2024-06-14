@@ -28,9 +28,9 @@ public class EnemyCharacter : MonoBehaviour
     void CreateWeapons()
     {
         // instatiate weapons
-        weapons[0] = Instantiate(bow, rightEquip);
-        weapons[1] = Instantiate(sword, rightEquip);
-        weapons[2] = Instantiate(sword, leftEquip);
+        weapons[0] = Instantiate(bow, leftEquip);
+        weapons[1] = Instantiate(sword, leftEquip);
+        weapons[2] = Instantiate(sword, rightEquip);
         // unequip weapons first
         Unequip();
     }
