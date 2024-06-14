@@ -32,12 +32,20 @@ public class CameraController : MonoBehaviour
         // apply changes
         if (Input.GetMouseButton(mouseButton))
         {
+            // set cursor
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            // set camera
             tpc.mCameraType = newCameraType;
             tpc.mRotationSpeed = newCamRotSpeed;
             return;
         }
 
         // revert changes
+        // set cursor
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        // set camera
         tpc.mCameraType = originalCameraType;
         tpc.mRotationSpeed = originalRotSpeed;
     }
