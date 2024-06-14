@@ -9,11 +9,13 @@ public class EnemyCharacter : MonoBehaviour
     [SerializeField] GameObject sword;
     [SerializeField] GameObject bow;
     [SerializeField] Transform leftEquip, rightEquip;
+    GameObject[] weapons = new GameObject[3];
 
     // Start is called before the first frame update
     void Start()
     {
-
+        CreateWeapons();
+        Equip(true);
     }
 
     // Update is called once per frame
@@ -22,23 +24,38 @@ public class EnemyCharacter : MonoBehaviour
         
     }
 
-    public void Equip(GameObject weapon)
+    #region Handle Weapon
+    void CreateWeapons()
     {
-        // ensure weapon is sword or bow
-        if (weapon != sword || weapon != bow) return;
-        // destroy all child objects in hand
-        foreach(Transform child in leftEquip)
-        {
-            Destroy(child.gameObject);
-        }
-        foreach(Transform child in rightEquip)
-        {
-            Destroy(child.gameObject);
-        }
-        // equip weapons
-        Instantiate(weapon, rightEquip);
-        // only equip on left hand if its the sword
-        if (weapon == bow) return;
-        Instantiate(weapon, leftEquip);
+        // instatiate weapons
+        weapons[0] = Instantiate(bow, rightEquip);
+        weapons[1] = Instantiate(sword, rightEquip);
+        weapons[2] = Instantiate(sword, leftEquip);
+        // unequip weapons first
+        Unequip();
     }
+
+    public void Unequip()
+    {
+        foreach (GameObject obj in weapons)
+        {
+            obj.SetActive(false);
+        }
+    }
+
+    public void Equip(bool isSword)
+    {
+        // unequip all weapons first
+        Unequip();
+        // equip sword
+        if (isSword)
+        {
+            weapons[1].SetActive(true);
+            weapons[2].SetActive(true);
+            return;
+        }
+        // equip bow
+        weapons[0].SetActive(true);
+    }
+    #endregion
 }
