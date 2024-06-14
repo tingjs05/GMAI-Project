@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2857782051361135980}
   - component: {fileID: 572981632856205888}
   - component: {fileID: 7299132303907042281}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Tartaglia
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c24601560600244187bd9c79b4b771c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  height: 1.7
 --- !u!114 &7299132303907042281
 MonoBehaviour:
   m_ObjectHideFlags: 0
