@@ -15,7 +15,7 @@ public class EnemyCharacter : MonoBehaviour
     void Start()
     {
         CreateWeapons();
-        Equip(true);
+        Equip(1);
     }
 
     // Update is called once per frame
@@ -43,19 +43,24 @@ public class EnemyCharacter : MonoBehaviour
         }
     }
 
-    public void Equip(bool isSword)
+    public void Equip(int weapon)
     {
         // unequip all weapons first
         Unequip();
-        // equip sword
-        if (isSword)
+        // equip weapon
+        switch (weapon)
         {
-            weapons[1].SetActive(true);
-            weapons[2].SetActive(true);
-            return;
+            case 0:
+                weapons[1].SetActive(true);
+                weapons[2].SetActive(true);
+                break;
+            case 1:
+                weapons[0].SetActive(true);
+                break;
+            default:
+                Debug.LogWarning("Weapon " + weapon + " cannot be found! ");
+                break;
         }
-        // equip bow
-        weapons[0].SetActive(true);
     }
     #endregion
 }
