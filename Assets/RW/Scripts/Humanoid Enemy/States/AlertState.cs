@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RayWenderlich.Unity.StatePatternInUnity;
 
 namespace RayWenderlich.Unity.StatePatternInUnity
 {
-    public class EnemyAlertState : EnemyState
+    public class AlertState : EnemyState
     {
-        public EnemyAlertState(EnemyCharacter character, StateMachine stateMachine) : base(character, stateMachine)
+        public AlertState(EnemyCharacter character, StateMachine stateMachine) : base(character, stateMachine)
         {
         }
 
@@ -33,12 +32,12 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             }
 
             // check if player is within shooting range
-            // if (Vector3.Distance(character.transform.position, player.transform.position) <= character.data.RangedAttackRange)
-            // {
-            //     // change to circling state to fire arrows
-            //     // stateMachine.ChangeState(character.);
-            //     return;
-            // }
+            if (Vector3.Distance(character.transform.position, player.transform.position) <= character.data.RangedAttackRange)
+            {
+                // change to circling state to fire arrows
+                stateMachine.ChangeState(character.circle);
+                return;
+            }
 
             // walk towads the player to close the distance
             character.agent.SetDestination(player.transform.position);

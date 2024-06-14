@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace RayWenderlich.Unity.StatePatternInUnity
 {
-    public class EnemyIdleState : EnemyState
+    public class IdleState : EnemyState
     {
-        public EnemyIdleState(EnemyCharacter character, StateMachine stateMachine) : base(character, stateMachine)
+        public IdleState(EnemyCharacter character, StateMachine stateMachine) : base(character, stateMachine)
         {
         }
 

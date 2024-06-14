@@ -31,8 +31,9 @@ public class EnemyCharacter : MonoBehaviour
     // state machine
     StateMachine fsm;
     // states
-    public EnemyIdleState idle { get; private set; }
-    public EnemyAlertState alert { get; private set; }
+    public IdleState idle { get; private set; }
+    public AlertState alert { get; private set; }
+    public CircleState circle { get; private set; }
     #endregion
 
     // private variables
@@ -44,8 +45,9 @@ public class EnemyCharacter : MonoBehaviour
         // initialize fsm
         fsm = new StateMachine();
         // initialize states
-        idle = new EnemyIdleState(this, fsm);
-        alert = new EnemyAlertState(this, fsm);
+        idle = new IdleState(this, fsm);
+        alert = new AlertState(this, fsm);
+        circle = new CircleState(this, fsm);
     }
 
     // Start is called before the first frame update
