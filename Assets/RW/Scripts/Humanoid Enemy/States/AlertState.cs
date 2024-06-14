@@ -16,7 +16,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             // set speed to walk speed
             character.agent.speed = character.data.WalkSpeed;
             // play walk animation
-            character.anim.SetBool("Moving", true);
+            character.anim.SetFloat("Movement", 1f);
         }
 
         public override void LogicUpdate()
@@ -47,7 +47,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         {
             base.Exit();
             // stop playing walk animation
-            character.anim.SetBool("Moving", false);
+            character.anim.SetFloat("Movement", 0f);
         }
     }
 }
