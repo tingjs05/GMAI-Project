@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Astar.Pathfinding;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(SpiderData), typeof(Agent))]
 public class SpiderController : MonoBehaviour, IDamagable
@@ -23,6 +24,8 @@ public class SpiderController : MonoBehaviour, IDamagable
 
     // coroutine
     private Coroutine coroutine;
+    // health bar
+    private Slider healthBar;
 
     // events
     public event System.Action<float> Damaged;
@@ -35,12 +38,17 @@ public class SpiderController : MonoBehaviour, IDamagable
         data = GetComponent<SpiderData>();
         agent = GetComponent<Agent>();
         anim = GetComponentInChildren<Animator>();
+        healthBar = GetComponentInChildren<Slider>();
         // get children objects
         hitbox = transform.GetChild(1).gameObject;
         parryIndicator = transform.GetChild(2).gameObject;
 
         // set health
         Health = data.MaxHealth;
+        healthBar.maxValue = data.MaxHealth;
+        healthBar.value = Health;
+        healthBar.gameObject.SetActive(false);
+
         // set booleans
         Died = false;
         Stunned = false;
@@ -61,6 +69,9 @@ public class SpiderController : MonoBehaviour, IDamagable
         Health -= damage;
         // invoke event
         Damaged?.Invoke(damage);
+        // update healthbar
+        healthBar.value = Health;
+        healthBar.gameObject.SetActive(Health < data.MaxHealth || Health <= 0f);
         // check if enemy has been killed
         if (Health > 0) return;
         Died = true;
