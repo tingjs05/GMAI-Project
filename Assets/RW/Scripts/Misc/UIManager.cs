@@ -62,7 +62,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             }
         }
 
-        public void Display(State enteredState, Alignment alignment)
+        public void Display(BaseState enteredState, Alignment alignment)
         {
             var name = enteredState.ToString();
             name = name.Remove(name.IndexOf(textToTrim), textToTrim.Length);

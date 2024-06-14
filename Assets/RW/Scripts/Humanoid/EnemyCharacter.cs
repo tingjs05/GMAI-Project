@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RayWenderlich.Unity.StatePatternInUnity;
 
-public class EnemyController : MonoBehaviour
+public class EnemyCharacter : MonoBehaviour
 {
     [Header("Equipment")]
     [SerializeField] GameObject sword;

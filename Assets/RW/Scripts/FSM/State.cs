@@ -33,27 +33,14 @@ using UnityEngine;
 
 namespace RayWenderlich.Unity.StatePatternInUnity
 {
-    public abstract class State
+    public abstract class State : BaseState
     {
         protected Character character;
-        protected StateMachine stateMachine;
 
         protected State(Character character, StateMachine stateMachine)
         {
             this.character = character;
-            this.stateMachine = stateMachine;
+            base.stateMachine = stateMachine;
         }
-
-        protected void DisplayOnUI(UIManager.Alignment alignment)
-        {
-            UIManager.Instance.Display(this, alignment);
-        }
-
-        // virtual methods to be overridden by children
-        public virtual void Enter() {}
-        public virtual void HandleInput() {}
-        public virtual void LogicUpdate() {}
-        public virtual void PhysicsUpdate() {}
-        public virtual void Exit() {}
     }
 }
