@@ -145,7 +145,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             Health -= damage;
             // update healthbar
             healthBar.value = Health;
-            healthBar.gameObject.SetActive(Health < data.maxHealth);
             // trigger hit animation
             TriggerAnimation(hitParam);
         }
@@ -285,7 +284,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             Health = data.maxHealth;
             healthBar.maxValue = data.maxHealth;
             healthBar.value = Health;
-            healthBar.gameObject.SetActive(false);
 
             // set up FSMs
             // default states

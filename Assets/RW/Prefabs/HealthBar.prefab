@@ -113,7 +113,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 910232779223372864}
   m_HandleRect: {fileID: 0}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.478
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 5681760812729998625}
   - component: {fileID: 8749806723243063442}
   - component: {fileID: 4267952010399262062}
+  - component: {fileID: 8189570373718516806}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -209,7 +210,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4267952010399262062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,6 +228,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8189570373718516806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5408934341389556885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b54d3f72fc32024cb52cc827b1000ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7104836003256482320
 GameObject:
   m_ObjectHideFlags: 0
