@@ -59,10 +59,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 1
 --- !u!136 &3690943818983299334
 CapsuleCollider:
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 150
-  <WalkSpeed>k__BackingField: 10
+  <WalkSpeed>k__BackingField: 8
   <Damage>k__BackingField: 10
   <ComboDamage>k__BackingField: 20
   <DetectionRange>k__BackingField: 20
@@ -112,6 +112,9 @@ MonoBehaviour:
     type: 3}
   <LeftEquip>k__BackingField: {fileID: 5647437809895610336}
   <RightEquip>k__BackingField: {fileID: 997110646941777387}
+  <PlayerMask>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 8192
   showGizmos: 1
 --- !u!114 &572981632856205888
 MonoBehaviour:
@@ -138,9 +141,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57d395f4d3547144b82d8e197339c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 8
   angularSpeed: 1
-  stoppingDistance: 1
+  stoppingDistance: 1.5
   updateRotation: 1
   showGizmos: 1
 --- !u!1001 &1469262080695763491

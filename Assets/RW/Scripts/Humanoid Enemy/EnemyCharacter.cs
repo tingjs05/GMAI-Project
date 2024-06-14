@@ -16,6 +16,7 @@ public class EnemyCharacter : MonoBehaviour
     // components
     public EnemyData data { get; private set; }
     public Agent agent { get; private set; }
+    public Animator anim { get; private set; }
 
     // position relative to height
     public Vector3 position 
@@ -27,34 +28,46 @@ public class EnemyCharacter : MonoBehaviour
     #endregion
 
     #region FSM
+    // state machine
     StateMachine fsm;
+    // states
+    public EnemyIdleState idle { get; private set; }
+    public EnemyAlertState alert { get; private set; }
     #endregion
 
     // private variables
     GameObject[] weapons = new GameObject[3];
 
     #region MonoBehaviour Callbacks
+    void Awake()
+    {
+        // initialize fsm
+        fsm = new StateMachine();
+        // initialize states
+        idle = new EnemyIdleState(this, fsm);
+        alert = new EnemyAlertState(this, fsm);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         // get components
         data = GetComponent<EnemyData>();
         agent = GetComponent<Agent>();
-
-        // set up weapon
-        // CreateWeapons();
-        // Equip(1);
+        anim = GetComponentInChildren<Animator>();
+        // initialize fsm
+        fsm.Initialize(idle);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        fsm.Update();
     }
 
     void FixedUpdate()
     {
-        // apply gravity
+        fsm.FixedUpdate();
     }
     #endregion
 
@@ -95,6 +108,23 @@ public class EnemyCharacter : MonoBehaviour
                 Debug.LogWarning("Weapon " + weapon + " cannot be found! ");
                 break;
         }
+    }
+    #endregion
+
+    #region Other Public Methods
+    // check if player is nearby within a certain range around the enemy
+    public bool PlayerNearby(float range, out Transform player)
+    {
+        // use sphere cast all, check all nearby objects
+        Collider[] hits = Physics.OverlapSphere(transform.position, range, data.PlayerMask);
+        // check if anything is hit
+        if (hits.Length > 0)
+        {
+            player = hits[0].transform;
+            return true;
+        }
+        player = null;
+        return false;
     }
     #endregion
 

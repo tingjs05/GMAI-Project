@@ -21,6 +21,7 @@ public class EnemyData : MonoBehaviour
     [field: SerializeField] public Transform LeftEquip { get; private set; }
     [field: SerializeField] public Transform RightEquip { get; private set; }
 
-    [Header("Others")]
+    [field: Header("Others")]
+    [field: SerializeField] public LayerMask PlayerMask { get; private set; }
     public bool showGizmos = true;
 }

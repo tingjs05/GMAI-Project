@@ -13,5 +13,12 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             this.character = character;
             base.stateMachine = stateMachine;
         }
+
+        public override void Enter()
+        {
+            base.Enter();
+            // display current state
+            DisplayOnUI(UIManager.Alignment.Right);
+        }
     }
 }
