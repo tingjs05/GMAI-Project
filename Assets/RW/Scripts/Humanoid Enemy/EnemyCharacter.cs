@@ -53,6 +53,7 @@ public class EnemyCharacter : MonoBehaviour
     public EnemyAttack2State attack2 { get; private set; }
     public EnemyAttack3State attack3 { get; private set; }
     public EnemyAttack4State attack4 { get; private set; }
+    public EnemyComboAttackState comboAttack { get; private set; }
     #endregion
 
     // private variables
@@ -74,6 +75,7 @@ public class EnemyCharacter : MonoBehaviour
         attack2 = new EnemyAttack2State(this, fsm);
         attack3 = new EnemyAttack3State(this, fsm);
         attack4 = new EnemyAttack4State(this, fsm);
+        comboAttack = new EnemyComboAttackState(this, fsm);
     }
 
     // Start is called before the first frame update
