@@ -52,6 +52,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
                         character.data.ShotCooldown
                     )
                 );
+            // reset trigger
+            character.anim.ResetTrigger("Shoot");
         }
 
         void SetShootDirection()

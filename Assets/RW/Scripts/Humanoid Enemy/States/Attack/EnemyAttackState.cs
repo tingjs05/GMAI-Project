@@ -38,5 +38,12 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             // face player
             character.transform.forward = (player.position - character.transform.position).normalized;
         }
+
+        public override void Exit()
+        {
+            base.Exit();
+            // reset trigger
+            character.anim.ResetTrigger("Attack");
+        }
     }
 }

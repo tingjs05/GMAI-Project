@@ -16,13 +16,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Enter()
         {
             base.Enter();
-            // check if player is within attack range
-            if (!character.PlayerNearby(character.data.MeleeAttackRange, out player))
-            {
-                // return to idle state if player is not within attack range
-                stateMachine.ChangeState(character.idle);
-                return;
-            }
+            // check if player is within attack range and get a reference to player
+            character.PlayerNearby(character.data.MeleeAttackRange, out player);
             // cache start health
             startHealth = character.Health;
             // equip weapon
@@ -63,6 +58,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             yield return new WaitForSeconds(duration);
             // reset combo attack counter
             character.comboCoroutine = null;
+            // reset trigger
+            character.anim.ResetTrigger("Combo");
         }
     }
 }

@@ -364,13 +364,13 @@ MonoBehaviour:
   <ShotGroupCooldown>k__BackingField: {x: 3, y: 5}
   <RushCooldown>k__BackingField: {x: 8, y: 15}
   <ComboAttackCooldown>k__BackingField: {x: 5, y: 8}
-  <ShootAnimDuration>k__BackingField: 1.733
-  <Attak1Duration>k__BackingField: 1.5
-  <Attak2Duration>k__BackingField: 2.4
-  <Attak3Duration>k__BackingField: 2.633
-  <Attak4Duration>k__BackingField: 2.5
-  <ComboAttackDuration>k__BackingField: 3.633
-  <DeathAnimDuration>k__BackingField: 3
+  <ShootAnimDuration>k__BackingField: 1.8
+  <Attak1Duration>k__BackingField: 1.6
+  <Attak2Duration>k__BackingField: 2.5
+  <Attak3Duration>k__BackingField: 2.7
+  <Attak4Duration>k__BackingField: 2.6
+  <ComboAttackDuration>k__BackingField: 3.7
+  <DeathAnimDuration>k__BackingField: 3.5
   <StunDuration>k__BackingField: 5
   <Sword>k__BackingField: {fileID: 4547779973191740304, guid: 53d160be7b3c0fa4195115b622af1e6f,
     type: 3}
