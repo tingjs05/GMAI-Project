@@ -45,7 +45,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6796170421696075733}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 50
   m_Drag: 1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -112,11 +112,13 @@ MonoBehaviour:
   <ShotCooldown>k__BackingField: 0.5
   <ShotGroupCooldown>k__BackingField: {x: 3, y: 5}
   <RushCooldown>k__BackingField: {x: 8, y: 15}
+  <ComboAttackCooldown>k__BackingField: {x: 5, y: 8}
   <ShootAnimDuration>k__BackingField: 1.733
   <Attak1Duration>k__BackingField: 1.5
   <Attak2Duration>k__BackingField: 2.4
   <Attak3Duration>k__BackingField: 2.633
   <Attak4Duration>k__BackingField: 2.5
+  <ComboAttackDuration>k__BackingField: 3.633
   <Sword>k__BackingField: {fileID: 4547779973191740304, guid: 53d160be7b3c0fa4195115b622af1e6f,
     type: 3}
   <Bow>k__BackingField: {fileID: 7797974500562566801, guid: 6d3aa4d07d5fa8c48a246464fdc2621f,

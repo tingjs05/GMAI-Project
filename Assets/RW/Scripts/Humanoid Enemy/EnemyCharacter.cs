@@ -28,13 +28,10 @@ public class EnemyCharacter : MonoBehaviour
     #endregion
 
     #region Duration Management
-    // manage shooting cooldown
+    // manage number of shots before long cooldown
     [HideInInspector] public int shotsFired = 0;
-    [HideInInspector] public Coroutine shootCoroutine;
-
-    // manage rush cooldown
-    [HideInInspector] public Coroutine rushCoroutine;
-
+    // coroutines to manage cooldowns
+    [HideInInspector] public Coroutine shootCoroutine, rushCoroutine, comboCoroutine;
     // manage animation durations
     Coroutine coroutine;
     #endregion

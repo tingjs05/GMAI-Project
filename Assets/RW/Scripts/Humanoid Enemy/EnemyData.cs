@@ -32,6 +32,7 @@ public class EnemyData : MonoBehaviour
     [field: SerializeField] public float ShotCooldown { get; private set; } = 0.5f;
     [field: SerializeField] public Vector2 ShotGroupCooldown { get; private set; }
     [field: SerializeField] public Vector2 RushCooldown { get; private set; }
+    [field: SerializeField] public Vector2 ComboAttackCooldown { get; private set; }
 
     #endregion
 

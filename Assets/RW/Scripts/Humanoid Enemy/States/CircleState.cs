@@ -34,8 +34,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             // check if player is within melee range
             if (Vector3.Distance(character.transform.position, player.transform.position) <= character.data.MeleeAttackRange)
             {
-                // change to circling state to fire arrows
-                stateMachine.ChangeState(character.attack1);
+                // check if can perform combo attack, otherwise perform normal attack
+                stateMachine.ChangeState(character.comboCoroutine == null ? character.comboAttack : character.attack1);
                 return;
             }
 
