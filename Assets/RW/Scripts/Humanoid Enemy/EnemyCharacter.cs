@@ -53,6 +53,7 @@ public class EnemyCharacter : MonoBehaviour, IDamagable
     public CircleState circle { get; private set; }
     public ShootState shoot { get; private set; }
     public RushState rush { get; private set; }
+    public StunState stun { get; private set; }
     public DeathState death { get; private set; }
     // attack states
     public EnemyAttack1State attack1 { get; private set; }
@@ -76,6 +77,7 @@ public class EnemyCharacter : MonoBehaviour, IDamagable
         circle = new CircleState(this, fsm);
         shoot = new ShootState(this, fsm);
         rush = new RushState(this, fsm);
+        stun = new StunState(this, fsm);
         death = new DeathState(this, fsm);
         // initialize attack states
         attack1 = new EnemyAttack1State(this, fsm);
@@ -211,6 +213,12 @@ public class EnemyCharacter : MonoBehaviour, IDamagable
     // interface methods
     public void Damage(float damage)
     {
+        // stun if damaged while parry window is active
+        if (ParryIndicator.activeSelf)
+        {
+            fsm.ChangeState(stun);
+            return;
+        }
         // update health
         Health -= damage;
         healthBar.value = Health;
