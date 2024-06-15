@@ -52,6 +52,7 @@ public class EnemyCharacter : MonoBehaviour, IDamagable
     public CircleState circle { get; private set; }
     public ShootState shoot { get; private set; }
     public RushState rush { get; private set; }
+    public DeathState death { get; private set; }
     // attack states
     public EnemyAttack1State attack1 { get; private set; }
     public EnemyAttack2State attack2 { get; private set; }
@@ -74,6 +75,7 @@ public class EnemyCharacter : MonoBehaviour, IDamagable
         circle = new CircleState(this, fsm);
         shoot = new ShootState(this, fsm);
         rush = new RushState(this, fsm);
+        death = new DeathState(this, fsm);
         // initialize attack states
         attack1 = new EnemyAttack1State(this, fsm);
         attack2 = new EnemyAttack2State(this, fsm);
@@ -189,6 +191,16 @@ public class EnemyCharacter : MonoBehaviour, IDamagable
             hit.GetComponent<IDamagable>()?.Damage(damage);
         }
     }
+
+    // method to destroy self
+    public void Die()
+    {
+        // hide health bar
+        healthBar?.gameObject.SetActive(false);
+        // destroy self
+        Destroy(gameObject);
+    }
+
     #endregion
 
     #region Other Public Methods
@@ -198,6 +210,9 @@ public class EnemyCharacter : MonoBehaviour, IDamagable
         // update health
         Health -= damage;
         healthBar.value = Health;
+        // check if died
+        if (Health > 0f) return;
+        fsm.ChangeState(death);
     }
 
     // check if player is nearby within a certain range around the enemy

@@ -6,6 +6,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
 {
     public class EnemyComboAttackState : RootMotionState
     {
+        float startHealth;
         Transform player;
 
         public EnemyComboAttackState(EnemyCharacter character, StateMachine stateMachine) : base(character, stateMachine)
@@ -22,6 +23,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
                 stateMachine.ChangeState(character.idle);
                 return;
             }
+            // cache start health
+            startHealth = character.Health;
             // disallow movement
             character.agent.speed = 0f;
             // trigger attack animation
@@ -35,6 +38,11 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void LogicUpdate()
         {
             base.LogicUpdate();
+            // revert damages during combo state
+            if (character.Health < startHealth)
+            {
+                character.Damage(character.Health - startHealth);
+            }
             // ensure player is not null
             if (player == null) return;
             // face player

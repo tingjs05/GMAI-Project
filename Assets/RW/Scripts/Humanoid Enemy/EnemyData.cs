@@ -45,6 +45,7 @@ public class EnemyData : MonoBehaviour
     [field: SerializeField] public float Attak3Duration { get; private set; } = 2.633f;
     [field: SerializeField] public float Attak4Duration { get; private set; } = 2.5f;
     [field: SerializeField] public float ComboAttackDuration { get; private set; } = 3.633f;
+    [field: SerializeField] public float DeathAnimDuration { get; private set; } = 2.567f;
 
     #endregion
 

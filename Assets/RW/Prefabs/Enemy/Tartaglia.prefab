@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9befd5c701f2d62499ff65845cc1e940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 150
+  <MaxHealth>k__BackingField: 50
   <WalkSpeed>k__BackingField: 8
   <RushSpeed>k__BackingField: 20
   <Damage>k__BackingField: 10
@@ -119,6 +119,7 @@ MonoBehaviour:
   <Attak3Duration>k__BackingField: 2.633
   <Attak4Duration>k__BackingField: 2.5
   <ComboAttackDuration>k__BackingField: 3.633
+  <DeathAnimDuration>k__BackingField: 2.567
   <Sword>k__BackingField: {fileID: 4547779973191740304, guid: 53d160be7b3c0fa4195115b622af1e6f,
     type: 3}
   <Bow>k__BackingField: {fileID: 7797974500562566801, guid: 6d3aa4d07d5fa8c48a246464fdc2621f,
@@ -144,6 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   height: 1.7
+  healthBar: {fileID: 0}
   shotsFired: 0
 --- !u!114 &7299132303907042281
 MonoBehaviour:
