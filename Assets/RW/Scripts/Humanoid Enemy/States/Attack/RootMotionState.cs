@@ -6,7 +6,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
 {
     public class RootMotionState : EnemyState
     {
-        Transform model;
+        protected Transform model;
 
         public RootMotionState(EnemyCharacter character, StateMachine stateMachine) : base(character, stateMachine)
         {

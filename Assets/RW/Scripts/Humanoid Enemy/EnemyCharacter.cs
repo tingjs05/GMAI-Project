@@ -165,6 +165,17 @@ public class EnemyCharacter : MonoBehaviour
         return hits.Length <= 0;
         // return Physics.Raycast(position, (player.position - transform.position).normalized, LayerMask.GetMask("Obstacles"));
     }
+
+    public void Attack(float damage, Transform center)
+    {
+        // attack player in front of self
+        Collider[] hits = Physics.OverlapSphere(center.position + center.forward * (data.MeleeAttackRange / 2f), data.MeleeAttackRange / 2f, data.PlayerMask);
+        // apply damage
+        foreach (Collider hit in hits)
+        {
+            hit.GetComponent<IDamagable>().Damage(damage);
+        }
+    }
     #endregion
 
     #region Other Public Methods
