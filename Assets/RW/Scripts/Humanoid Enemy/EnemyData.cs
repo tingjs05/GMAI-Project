@@ -21,6 +21,7 @@ public class EnemyData : MonoBehaviour
     [field: SerializeField] public int ShotsInARow { get; private set; } = 3;
     [field: SerializeField] public float ShotCooldown { get; private set; } = 0.5f;
     [field: SerializeField] public Vector2 ShotGroupCooldown { get; private set; }
+    [field: SerializeField] public Vector2 RushCooldown { get; private set; }
 
     [field: Header("Animation Durations")]
     [field: SerializeField] public float ShootAnimDuration { get; private set; } = 1.733f;

@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 150
   <WalkSpeed>k__BackingField: 8
+  <RushSpeed>k__BackingField: 20
   <Damage>k__BackingField: 10
   <ComboDamage>k__BackingField: 20
   <ArrowDamage>k__BackingField: 5
@@ -110,6 +111,7 @@ MonoBehaviour:
   <ShotsInARow>k__BackingField: 3
   <ShotCooldown>k__BackingField: 0.5
   <ShotGroupCooldown>k__BackingField: {x: 3, y: 5}
+  <RushCooldown>k__BackingField: {x: 8, y: 15}
   <ShootAnimDuration>k__BackingField: 1.733
   <Sword>k__BackingField: {fileID: 4547779973191740304, guid: 53d160be7b3c0fa4195115b622af1e6f,
     type: 3}
@@ -122,7 +124,7 @@ MonoBehaviour:
   <PlayerMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 8192
-  showGizmos: 1
+  <ShowGizmos>k__BackingField: 1
 --- !u!114 &572981632856205888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c24601560600244187bd9c79b4b771c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 1.7
+  <Height>k__BackingField: 1.7
   shotsFired: 0
 --- !u!114 &7299132303907042281
 MonoBehaviour:

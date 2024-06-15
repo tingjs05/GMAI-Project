@@ -29,9 +29,11 @@ public class EnemyCharacter : MonoBehaviour
 
     #region Duration Management
     // manage shooting cooldown
-    public bool CanShoot { get; private set; } = true;
     [HideInInspector] public int shotsFired = 0;
     [HideInInspector] public Coroutine shootCoroutine;
+
+    // manage rush cooldown
+    [HideInInspector] public Coroutine rushCoroutine;
 
     // manage animation durations
     Coroutine coroutine;
@@ -45,6 +47,7 @@ public class EnemyCharacter : MonoBehaviour
     public AlertState alert { get; private set; }
     public CircleState circle { get; private set; }
     public ShootState shoot { get; private set; }
+    public RushState rush { get; private set; }
     #endregion
 
     // private variables
@@ -60,6 +63,7 @@ public class EnemyCharacter : MonoBehaviour
         alert = new AlertState(this, fsm);
         circle = new CircleState(this, fsm);
         shoot = new ShootState(this, fsm);
+        rush = new RushState(this, fsm);
     }
 
     // Start is called before the first frame update
@@ -136,6 +140,20 @@ public class EnemyCharacter : MonoBehaviour
             );
         // set arrow damage
         arrow.GetComponent<HitBox>()?.SetDamage(data.ArrowDamage);
+    }
+    #endregion
+
+    #region State Related Methods
+    public bool CanRush(out Transform player)
+    {
+        // check if player is within range
+        if (!PlayerNearby(data.RangedAttackRange, out player)) return false;
+        // check if still in rush cooldown
+        if (rushCoroutine != null) return false;
+        // check if there are any obstacles in range
+        Collider[] hits = Physics.OverlapSphere(transform.position + transform.forward * height, 2.5f, LayerMask.GetMask("Obstacles"));
+        return hits.Length <= 0;
+        // return Physics.Raycast(position, (player.position - transform.position).normalized, LayerMask.GetMask("Obstacles"));
     }
     #endregion
 

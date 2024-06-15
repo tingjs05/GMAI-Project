@@ -39,6 +39,13 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             //     return;
             // }
 
+            // check if can rush player
+            if (character.CanRush(out Transform _player))
+            {
+                stateMachine.ChangeState(character.rush);
+                return;
+            }
+
             // check if can shoot player (in shoot cooldown)
             if (character.shootCoroutine == null)
             {
