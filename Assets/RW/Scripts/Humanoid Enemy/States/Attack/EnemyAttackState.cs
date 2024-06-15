@@ -28,8 +28,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             character.anim.SetTrigger("Attack");
             // equip weapon
             character.Equip(0);
-            // deal damage
-            character.Attack(character.data.Damage, character.transform);
         }
 
         public override void LogicUpdate()

@@ -154,6 +154,7 @@ public class EnemyCharacter : MonoBehaviour
     #endregion
 
     #region State Related Methods
+    // method to check if can rush player
     public bool CanRush(out Transform player)
     {
         // check if player is within range
@@ -161,12 +162,12 @@ public class EnemyCharacter : MonoBehaviour
         // check if still in rush cooldown
         if (rushCoroutine != null) return false;
         // check if there are any obstacles in range
-        Collider[] hits = Physics.OverlapSphere(transform.position + transform.forward * height, 2.5f, LayerMask.GetMask("Obstacles"));
+        Collider[] hits = Physics.OverlapSphere(transform.position + transform.forward * height, 1.5f, LayerMask.GetMask("Obstacles"));
         return hits.Length <= 0;
-        // return Physics.Raycast(position, (player.position - transform.position).normalized, LayerMask.GetMask("Obstacles"));
     }
 
-    public void Attack(float damage, Transform center)
+    // method to get damagable interface and deal damage
+    public void DealDamage(float damage, Transform center)
     {
         // attack player in front of self
         Collider[] hits = Physics.OverlapSphere(center.position + center.forward * (data.MeleeAttackRange / 2f), data.MeleeAttackRange / 2f, data.PlayerMask);
