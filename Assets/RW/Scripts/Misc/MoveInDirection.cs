@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Panda.Examples.Move;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class MoveInDirection : MonoBehaviour
 {

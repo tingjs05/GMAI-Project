@@ -132,7 +132,7 @@ public class EnemyCharacter : MonoBehaviour
         GameObject arrow = Instantiate(
                 data.Arrow, 
                 position + (transform.forward * 2.5f), 
-                Quaternion.Euler(transform.rotation.y, transform.rotation.x, transform.rotation.z)
+                Quaternion.Euler(data.Arrow.transform.eulerAngles.x, data.Arrow.transform.eulerAngles.y, transform.eulerAngles.y)
             );
         // set arrow damage
         arrow.GetComponent<HitBox>()?.SetDamage(data.ArrowDamage);
