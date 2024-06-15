@@ -176,7 +176,7 @@ public class EnemyCharacter : MonoBehaviour
         // ensure data is not null
         if (data == null) data = GetComponent<EnemyData>();
         // check if need to show gizmos
-        if (!data.showGizmos) return;
+        if (!data.ShowGizmos) return;
         // show attack ranges
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(position, data.DetectionRange);

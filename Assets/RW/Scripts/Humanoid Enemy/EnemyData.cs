@@ -7,6 +7,7 @@ public class EnemyData : MonoBehaviour
     [field: Header("Stats")]
     [field: SerializeField] public float MaxHealth { get; private set; } = 150f;
     [field: SerializeField] public float WalkSpeed { get; private set; } = 10f;
+    [field: SerializeField] public float RushSpeed { get; private set; } = 20f;
     [field: SerializeField] public float Damage { get; private set; } = 10f;
     [field: SerializeField] public float ComboDamage { get; private set; } = 20f;
     [field: SerializeField] public float ArrowDamage { get; private set; } = 5f;
@@ -33,5 +34,5 @@ public class EnemyData : MonoBehaviour
 
     [field: Header("Others")]
     [field: SerializeField] public LayerMask PlayerMask { get; private set; }
-    public bool showGizmos = true;
+    [field: SerializeField] public bool ShowGizmos { get; private set; } = true;
 }
