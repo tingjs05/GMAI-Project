@@ -20,6 +20,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             startHealth = character.Health;
             // trigger animation
             character.TriggerAnimation(character.rollParam);
+            // change collider size
+            character.ColliderSize = character.CrouchColliderHeight;
             // display state on UI 
             DisplayOnUI(UIManager.Alignment.Left);
         }
@@ -31,7 +33,11 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             if (character.Health < startHealth) HandleDodge();
             // check if animation has ended, if so, switch state
             if (character.GetAnimationState(0).normalizedTime < 1) return;
-            stateMachine.ChangeState(character.standing);
+            // end dodge, check if below ceiling
+            if (character.CheckCollisionOverlap(character.transform.position + Vector3.up * character.NormalColliderHeight))
+                stateMachine.ChangeState(character.ducking);
+            else
+                stateMachine.ChangeState(character.standing);
         }
 
         public override void PhysicsUpdate()
@@ -44,6 +50,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Exit()
         {
             base.Exit();
+            // revert collider size
+            character.ColliderSize = character.NormalColliderHeight;
         }
 
         void SetDodgeDirection()
