@@ -1,0 +1,30 @@
+tree("Root")
+    fallback
+        tree("Priorities")
+        tree("Attack")
+        tree("Patrol")
+
+tree("Priorities")
+    fallback
+        while CheckDeath
+            Die
+        while CheckStun
+            Stun
+
+tree("Attack")
+    sequence
+        sequence
+            TargetWithinRange
+            ChaseTarget
+        fallback
+            sequence
+                CanStrongAttack
+                StrongAttack
+            sequence
+                Attack(0)
+                Wait(0.01)
+                Attack(1)
+                Wait(0.5)
+
+tree("Patrol")
+    Patrol

@@ -1,0 +1,59 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Panda;
+using RayWenderlich.Unity.StatePatternInUnity;
+
+public class SpiderPrioritiesTasks : SpiderTask
+{
+    // death tree
+    [Task]
+    public bool CheckDeath()
+    {
+        return bot.Died;
+    }
+
+    [Task]
+    public void Die()
+    {
+        // count duration for death animation
+        if (bot.CounterRunning()) return;
+        // start coroutine to count animation duration
+        // destroy game object after death animation
+        bot.CountDuration(bot.data.DeathDuration, () => Destroy(gameObject));
+        // set death animation
+        bot.anim.SetFloat("x", 0f);
+        bot.anim.SetTrigger("Die");
+    }
+
+    // stun tree
+    [Task]
+    public bool CheckStun()
+    {
+        return bot.Stunned;
+    }
+
+    [Task]
+    public void Stun()
+    {
+        // complete task once counter is over
+        if (taskCompleted)
+        {
+            // reset stun to false
+            bot.SetStun(false);
+            // set task as complete
+            taskCompleted = false;
+            ThisTask.Succeed();
+            return;
+        }
+
+        // only start coroutine counter if not already running
+        if (bot.CounterRunning()) return;
+        // start coroutine
+        bot.CountDuration(bot.data.StunDuration, () => taskCompleted = true);
+        // knock self back
+        GetComponent<Rigidbody>()?.AddForce(-transform.forward * bot.data.ParryKnockbackForce, ForceMode.Impulse);
+        // play stun sound effect
+        SoundManager.Instance?.PlaySound(SoundManager.Instance.shieldBreak);
+    }
+}
