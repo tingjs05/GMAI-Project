@@ -20,7 +20,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             character.anim.applyRootMotion = true;
         }
 
-
         public override void Exit()
         {
             base.Exit();
