@@ -6,8 +6,14 @@ namespace RayWenderlich.Unity.StatePatternInUnity
 {
     public class DeathState : EnemyState
     {
+        Rigidbody rb;
+        Collider collider;
+
         public DeathState(EnemyCharacter character, StateMachine stateMachine) : base(character, stateMachine)
         {
+            // get components
+            rb = character.GetComponent<Rigidbody>();
+            collider = character.GetComponent<Collider>();
         }
 
         public override void Enter()
@@ -15,6 +21,10 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             base.Enter();
             // set movement to 0
             character.agent.speed = 0f;
+            // set to iskinematic
+            rb.isKinematic = true;
+            // disable collider
+            collider.enabled = false;
             // play death animation
             character.anim.SetTrigger("Die");
             // count death animation duration
@@ -25,7 +35,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         {
             base.LogicUpdate();
             // ensure is grounded
-            character.transform.position = new Vector3(character.position.x, 0f, character.position.z);
+            character.transform.position = new Vector3(character.position.x, -1.5f, character.position.z);
         }
     }
 }
