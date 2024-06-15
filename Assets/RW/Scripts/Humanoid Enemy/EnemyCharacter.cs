@@ -31,7 +31,7 @@ public class EnemyCharacter : MonoBehaviour, IDamagable
 
     // health bar property
     public Slider HealthBar => healthBar;
-    
+
     #endregion
 
     #region Duration Management
@@ -186,7 +186,7 @@ public class EnemyCharacter : MonoBehaviour, IDamagable
         // apply damage
         foreach (Collider hit in hits)
         {
-            hit.GetComponent<IDamagable>().Damage(damage);
+            hit.GetComponent<IDamagable>()?.Damage(damage);
         }
     }
     #endregion
