@@ -28,7 +28,8 @@ public class EnemyCharacter : MonoBehaviour, IDamagable
 
     // health for damagable component
     public float Health { get; private set; }
-
+    // parry indicator object
+    public GameObject ParryIndicator { get; private set; }
     // health bar property
     public Slider HealthBar => healthBar;
 
@@ -91,6 +92,9 @@ public class EnemyCharacter : MonoBehaviour, IDamagable
         data = GetComponent<EnemyData>();
         agent = GetComponent<Agent>();
         anim = GetComponentInChildren<Animator>();
+        // get parry indicator
+        ParryIndicator = transform.GetChild(1).gameObject;
+        ParryIndicator.SetActive(false);
 
         // set health
         Health = data.MaxHealth;

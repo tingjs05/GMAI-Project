@@ -6,6 +6,17 @@ public class EnemyAnimationEvents : MonoBehaviour
 {
     [SerializeField] EnemyCharacter character;
 
+    // methods to activate and deactivate parry window
+    public void ActivateParry()
+    {
+        character.ParryIndicator.SetActive(true);
+    }
+
+    public void DeactivateParry()
+    {
+        character.ParryIndicator.SetActive(false);
+    }
+
     // methods to be called by attack animation events
     public void Attack()
     {
