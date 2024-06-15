@@ -10,6 +10,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
 
         public RushState(EnemyCharacter character, StateMachine stateMachine) : base(character, stateMachine)
         {
+            // get rigidbody reference
+            rb = character.GetComponent<Rigidbody>();
         }
 
         public override void Enter()
@@ -19,8 +21,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             character.agent.speed = 0f;
             // play rush animation
             character.anim.SetFloat("Movement", 2f);
-            // get rigidbody reference
-            if (rb == null) rb = character.GetComponent<Rigidbody>();
         }
 
         public override void LogicUpdate()

@@ -27,7 +27,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             SetShootDirection();
             // start coroutine to count state duration
             character.CountDuration(character.data.ShootAnimDuration, 
-                () => stateMachine.ChangeState(character.circle));
+                () => stateMachine.ChangeState(character.idle));
         }
 
         public override void LogicUpdate()

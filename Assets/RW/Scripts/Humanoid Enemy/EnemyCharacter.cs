@@ -48,6 +48,11 @@ public class EnemyCharacter : MonoBehaviour
     public CircleState circle { get; private set; }
     public ShootState shoot { get; private set; }
     public RushState rush { get; private set; }
+    // attack states
+    public EnemyAttack1State attack1 { get; private set; }
+    public EnemyAttack2State attack2 { get; private set; }
+    public EnemyAttack3State attack3 { get; private set; }
+    public EnemyAttack4State attack4 { get; private set; }
     #endregion
 
     // private variables
@@ -64,6 +69,11 @@ public class EnemyCharacter : MonoBehaviour
         circle = new CircleState(this, fsm);
         shoot = new ShootState(this, fsm);
         rush = new RushState(this, fsm);
+        // initialize attack states
+        attack1 = new EnemyAttack1State(this, fsm);
+        attack2 = new EnemyAttack2State(this, fsm);
+        attack3 = new EnemyAttack3State(this, fsm);
+        attack4 = new EnemyAttack4State(this, fsm);
     }
 
     // Start is called before the first frame update

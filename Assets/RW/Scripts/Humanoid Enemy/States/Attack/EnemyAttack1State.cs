@@ -13,16 +13,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Enter()
         {
             base.Enter();
-        }
-
-        public override void LogicUpdate()
-        {
-            base.LogicUpdate();
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
+            // start coroutine to count animation duration, then move onto next attack
+            character.CountDuration(character.data.Attak1Duration * 0.95f, () => stateMachine.ChangeState(character.attack2));
         }
     }
 }
