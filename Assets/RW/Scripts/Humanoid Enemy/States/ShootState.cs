@@ -21,6 +21,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             character.Equip(1);
             // play shoot animation
             character.anim.SetTrigger("Shoot");
+            // play voiceline
+            character.voiceManager.PlaySound(character.voiceManager.arrow);
             // increment shoot count
             character.shotsFired++;
             // set shoot direction

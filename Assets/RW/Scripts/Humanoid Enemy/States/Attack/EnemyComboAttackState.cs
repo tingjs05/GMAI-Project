@@ -29,6 +29,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             character.agent.speed = 0f;
             // trigger attack animation
             character.anim.SetTrigger("Combo");
+            // play voiceline
+            character.voiceManager.PlaySound(character.voiceManager.comboAttack);
             // equip weapon
             character.Equip(0);
             // start coroutine to count animation duration, then return to idle state

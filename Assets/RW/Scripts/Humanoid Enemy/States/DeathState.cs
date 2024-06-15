@@ -27,6 +27,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             collider.enabled = false;
             // play death animation
             character.anim.SetTrigger("Die");
+            // play voiceline
+            character.voiceManager.PlaySound(character.voiceManager.death);
             // count death animation duration
             character.StartCoroutine(character.Die());
         }

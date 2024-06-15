@@ -18,6 +18,7 @@ public class EnemyCharacter : MonoBehaviour, IDamagable
     public EnemyData data { get; private set; }
     public Agent agent { get; private set; }
     public Animator anim { get; private set; }
+    public NPCVoicelineManager voiceManager { get; private set; }
 
     // position relative to height
     public Vector3 position 
@@ -94,8 +95,9 @@ public class EnemyCharacter : MonoBehaviour, IDamagable
         data = GetComponent<EnemyData>();
         agent = GetComponent<Agent>();
         anim = GetComponentInChildren<Animator>();
+        voiceManager = GetComponentInChildren<NPCVoicelineManager>();
         // get parry indicator
-        ParryIndicator = transform.GetChild(1).gameObject;
+        ParryIndicator = transform.GetChild(2).gameObject;
         ParryIndicator.SetActive(false);
 
         // set health

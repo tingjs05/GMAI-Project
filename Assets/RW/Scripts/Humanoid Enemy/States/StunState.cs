@@ -15,6 +15,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             base.Enter();
             // trigger hit animation
             character.anim.SetTrigger("Hit");
+            // play voiceline
+            character.voiceManager.PlaySound(character.voiceManager.stun);
             // play stun sound effect
             SoundManager.Instance?.PlaySound(SoundManager.Instance.shieldBreak);
             // start stun duration count
