@@ -113,6 +113,10 @@ MonoBehaviour:
   <ShotGroupCooldown>k__BackingField: {x: 3, y: 5}
   <RushCooldown>k__BackingField: {x: 8, y: 15}
   <ShootAnimDuration>k__BackingField: 1.733
+  <Attak1Duration>k__BackingField: 1.5
+  <Attak2Duration>k__BackingField: 2.4
+  <Attak3Duration>k__BackingField: 2.633
+  <Attak4Duration>k__BackingField: 2.5
   <Sword>k__BackingField: {fileID: 4547779973191740304, guid: 53d160be7b3c0fa4195115b622af1e6f,
     type: 3}
   <Bow>k__BackingField: {fileID: 7797974500562566801, guid: 6d3aa4d07d5fa8c48a246464fdc2621f,
@@ -137,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c24601560600244187bd9c79b4b771c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Height>k__BackingField: 1.7
+  height: 1.7
   shotsFired: 0
 --- !u!114 &7299132303907042281
 MonoBehaviour:

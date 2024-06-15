@@ -14,7 +14,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         {
             base.Enter();
             // start coroutine to count animation duration, then move onto next attack
-            character.CountDuration(character.data.Attak3Duration * 0.95f, () => stateMachine.ChangeState(character.attack4));
+            character.CountDuration(character.data.Attak3Duration * 0.8f, () => stateMachine.ChangeState(character.attack4));
         }
     }
 }
