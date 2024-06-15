@@ -38,4 +38,9 @@ public class DestroyAfterAWhile : MonoBehaviour
     {
         Destroy(gameObject, lifeTime);
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject);
+    }
 }

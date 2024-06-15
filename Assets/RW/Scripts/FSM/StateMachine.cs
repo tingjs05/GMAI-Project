@@ -33,14 +33,14 @@ namespace RayWenderlich.Unity.StatePatternInUnity
 {
     public class StateMachine
     {
-        public State CurrentState { get; private set; }
+        public BaseState CurrentState { get; private set; }
 
-        public void Initialize(State startingState)
+        public void Initialize(BaseState startingState)
         {
             CurrentState = startingState;
             CurrentState?.Enter();
         }
-        public void ChangeState(State newState)
+        public void ChangeState(BaseState newState)
         {
             CurrentState?.Exit();
             CurrentState = newState;

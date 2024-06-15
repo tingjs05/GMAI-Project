@@ -5,7 +5,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
 {
     public class RollState : State
     {
-        Coroutine coroutine;
         float startHealth;
 
         public RollState(Character character, StateMachine stateMachine) : base(character, stateMachine)
@@ -19,8 +18,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             SetDodgeDirection();
             // cache current health
             startHealth = character.Health;
-            // reset coroutine
-            coroutine = null;
             // trigger animation
             character.TriggerAnimation(character.rollParam);
             // display state on UI 
@@ -47,8 +44,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Exit()
         {
             base.Exit();
-            // reset time scale
-            Time.timeScale = 1f;
         }
 
         void SetDodgeDirection()
@@ -80,16 +75,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             character.Damage(character.Health - startHealth);
             // cancel hit animation trigger
             character.ResetTrigger(character.hitParam);
-            // temporarily slow down time
-            if (coroutine != null) character.StopCoroutine(coroutine);
-            coroutine = character.StartCoroutine(SlowDownTime(1f));
-        }
-
-        IEnumerator SlowDownTime(float duration)
-        {
-            Time.timeScale = 0.5f;
-            yield return new WaitForSeconds(duration);
-            Time.timeScale = 1f;
         }
     }
 }
