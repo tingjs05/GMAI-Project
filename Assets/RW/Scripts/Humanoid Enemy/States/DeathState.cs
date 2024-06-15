@@ -28,7 +28,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             // play death animation
             character.anim.SetTrigger("Die");
             // count death animation duration
-            character.CountDuration(character.data.DeathAnimDuration, () => character.Die());
+            character.StartCoroutine(character.Die());
         }
 
         public override void LogicUpdate()
@@ -36,6 +36,7 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             base.LogicUpdate();
             // ensure is grounded
             character.transform.position = new Vector3(character.position.x, -1.5f, character.position.z);
+            character.transform.rotation = Quaternion.Euler(0f, character.transform.eulerAngles.y, 0f);
         }
     }
 }

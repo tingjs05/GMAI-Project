@@ -199,8 +199,10 @@ public class EnemyCharacter : MonoBehaviour, IDamagable
     }
 
     // method to destroy self
-    public void Die()
+    public IEnumerator Die()
     {
+        // count death animation duration
+        yield return new WaitForSeconds(data.DeathAnimDuration);
         // hide health bar
         healthBar?.gameObject.SetActive(false);
         // destroy self
