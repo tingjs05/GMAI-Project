@@ -47,8 +47,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Exit()
         {
             base.Exit();
-            // reset time scale
-            Time.timeScale = 1f;
         }
 
         void SetDodgeDirection()
@@ -80,16 +78,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             character.Damage(character.Health - startHealth);
             // cancel hit animation trigger
             character.ResetTrigger(character.hitParam);
-            // temporarily slow down time
-            if (coroutine != null) character.StopCoroutine(coroutine);
-            coroutine = character.StartCoroutine(SlowDownTime(1f));
-        }
-
-        IEnumerator SlowDownTime(float duration)
-        {
-            Time.timeScale = 0.5f;
-            yield return new WaitForSeconds(duration);
-            Time.timeScale = 1f;
         }
     }
 }
