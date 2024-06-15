@@ -5,7 +5,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
 {
     public class RollState : State
     {
-        Coroutine coroutine;
         float startHealth;
 
         public RollState(Character character, StateMachine stateMachine) : base(character, stateMachine)
@@ -19,8 +18,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             SetDodgeDirection();
             // cache current health
             startHealth = character.Health;
-            // reset coroutine
-            coroutine = null;
             // trigger animation
             character.TriggerAnimation(character.rollParam);
             // display state on UI 
