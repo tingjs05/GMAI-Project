@@ -15,6 +15,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             base.Enter();
             // disallow movement
             character.agent.speed = 0f;
+            // hide health bar
+            character.HealthBar?.gameObject.SetActive(false);
         }
 
         public override void LogicUpdate()
@@ -26,6 +28,13 @@ namespace RayWenderlich.Unity.StatePatternInUnity
                 // change to alert state if player within range
                 stateMachine.ChangeState(character.alert);
             }
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            // show health bar
+            character.HealthBar?.gameObject.SetActive(true);
         }
     }
 }

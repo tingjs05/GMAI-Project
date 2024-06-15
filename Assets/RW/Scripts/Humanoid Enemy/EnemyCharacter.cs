@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Astar.Pathfinding;
 using RayWenderlich.Unity.StatePatternInUnity;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(EnemyData), typeof(Agent))]
-public class EnemyCharacter : MonoBehaviour
+public class EnemyCharacter : MonoBehaviour, IDamagable
 {
     #region Inspector Fields
     [SerializeField] float height = 1.7f;
+    [SerializeField] Slider healthBar;
     #endregion
 
     #region Properties
@@ -25,6 +26,12 @@ public class EnemyCharacter : MonoBehaviour
         set { transform.position = value - (Vector3.up * height); }
     }
 
+    // health for damagable component
+    public float Health { get; private set; }
+
+    // health bar property
+    public Slider HealthBar => healthBar;
+    
     #endregion
 
     #region Duration Management
@@ -82,6 +89,12 @@ public class EnemyCharacter : MonoBehaviour
         data = GetComponent<EnemyData>();
         agent = GetComponent<Agent>();
         anim = GetComponentInChildren<Animator>();
+
+        // set health
+        Health = data.MaxHealth;
+        healthBar.maxValue = data.MaxHealth;
+        healthBar.value = Health;
+
         // create weapons
         CreateWeapons();
         // initialize fsm
@@ -179,6 +192,14 @@ public class EnemyCharacter : MonoBehaviour
     #endregion
 
     #region Other Public Methods
+    // interface methods
+    public void Damage(float damage)
+    {
+        // update health
+        Health -= damage;
+        healthBar.value = Health;
+    }
+
     // check if player is nearby within a certain range around the enemy
     public bool PlayerNearby(float range, out Transform player)
     {
