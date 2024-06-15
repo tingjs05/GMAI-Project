@@ -15,10 +15,10 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Enter()
         {
             base.Enter();
-            // disallow movement
-            character.agent.speed = 0f;
             // equip bow
             character.Equip(1);
+            // disallow movement
+            character.agent.speed = 0f;
             // play shoot animation
             character.anim.SetTrigger("Shoot");
             // play voiceline
@@ -44,8 +44,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             base.Exit();
             // create arrow
             character.ShootArrow();
-            // unequip weapons
-            character.Unequip();
             // start counter for shot cooldown
             character.shootCoroutine = character.StartCoroutine(
                 WaitForShotCooldown(

@@ -13,6 +13,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Enter()
         {
             base.Enter();
+            // unequip weapons
+            character.Unequip();
             // trigger hit animation
             character.anim.SetTrigger("Hit");
             // play voiceline

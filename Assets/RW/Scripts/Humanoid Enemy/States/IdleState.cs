@@ -13,6 +13,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Enter()
         {
             base.Enter();
+            // unequip weapons
+            character.Unequip();
             // disallow movement
             character.agent.speed = 0f;
             // hide health bar

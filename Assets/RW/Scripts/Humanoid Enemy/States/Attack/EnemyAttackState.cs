@@ -22,12 +22,12 @@ namespace RayWenderlich.Unity.StatePatternInUnity
                 stateMachine.ChangeState(character.idle);
                 return;
             }
+            // equip weapon
+            character.Equip(0);
             // disallow movement
             character.agent.speed = 0f;
             // trigger attack animation
             character.anim.SetTrigger("Attack");
-            // equip weapon
-            character.Equip(0);
         }
 
         public override void LogicUpdate()
@@ -37,13 +37,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             if (player == null) return;
             // face player
             character.transform.forward = (player.position - character.transform.position).normalized;
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
-            // unequip weapon
-            character.Unequip();
         }
     }
 }

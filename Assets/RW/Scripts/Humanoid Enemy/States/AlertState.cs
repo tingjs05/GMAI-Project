@@ -13,6 +13,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Enter()
         {
             base.Enter();
+            // unequip weapons
+            character.Unequip();
             // set speed to walk speed
             character.agent.speed = character.data.WalkSpeed;
             // play walk animation

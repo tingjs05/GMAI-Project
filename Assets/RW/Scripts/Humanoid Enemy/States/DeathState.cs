@@ -19,6 +19,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Enter()
         {
             base.Enter();
+            // unequip weapons
+            character.Unequip();
             // set movement to 0
             character.agent.speed = 0f;
             // set to iskinematic

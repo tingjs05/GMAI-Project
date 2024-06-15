@@ -17,6 +17,8 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Enter()
         {
             base.Enter();
+            // unequip weapons
+            character.Unequip();
             // do not let agent move, manually handle movement
             character.agent.speed = 0f;
             // play rush animation

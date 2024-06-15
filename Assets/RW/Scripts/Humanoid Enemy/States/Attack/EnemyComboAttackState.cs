@@ -25,14 +25,14 @@ namespace RayWenderlich.Unity.StatePatternInUnity
             }
             // cache start health
             startHealth = character.Health;
+            // equip weapon
+            character.Equip(0);
             // disallow movement
             character.agent.speed = 0f;
             // trigger attack animation
             character.anim.SetTrigger("Combo");
             // play voiceline
             character.voiceManager.PlaySound(character.voiceManager.comboAttack);
-            // equip weapon
-            character.Equip(0);
             // start coroutine to count animation duration, then return to idle state
             character.CountDuration(character.data.ComboAttackDuration, () => stateMachine.ChangeState(character.idle));
         }
@@ -54,8 +54,6 @@ namespace RayWenderlich.Unity.StatePatternInUnity
         public override void Exit()
         {
             base.Exit();
-            // unequip weapon
-            character.Unequip();
             // count combo cooldown
             character.comboCoroutine = character.StartCoroutine(WaitForComboCooldown(Random.Range(character.data.ComboAttackCooldown.x, character.data.ComboAttackCooldown.y)));
         }
